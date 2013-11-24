@@ -1,7 +1,5 @@
 package com.ecomaplive.ecomobilelive.config;
 
-import java.security.InvalidParameterException;
-import java.util.List;
 
 /**
  * This interface sets the main methods that a CSV Configuration class must
@@ -21,6 +19,11 @@ public interface VersionConfig {
      * @return an integer corresponding to the ID of the CSV File
      */
     public int getVersionId();
+    
+    /**
+     * @return a String corresponding to the version number as a text (e.g.: "1.2")
+     */
+    public String getVersionNumberAsText();
 
     /**
      * @return a String corresponding to the name of the Sensor for the given
