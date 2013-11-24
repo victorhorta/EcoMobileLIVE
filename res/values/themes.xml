@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- the theme applied to the application or activity -->
+    <style name="GreenActionBarTheme" parent="@android:style/Theme.Holo">
+        <item name="android:actionBarStyle">@style/GreenActionBar</item>
+        <item name="android:windowBackground">@color/BackgroundMapLive2</item>
+    </style>
+
+    <!-- ActionBar styles -->
+    <style name="GreenActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@color/BackgroundMapLive</item>
+    </style>
+
+</resources>

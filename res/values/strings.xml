@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">EcoMobile LIVE</string>
+    <string name="database_name">Data Manager</string>
+    <string name="label_nofiles">No files have been stored.</string>
+    <string name="main_label_up_left">Collect Data</string>
+    <string name="main_label_up_right">Manage Files</string>
+    <string name="main_label_down_right">Visit EcoMapLIVE</string>
+    <string name="main_label_down_left">Share your data</string>
+    <string name="main_menu_about">About</string>
+    <string name="main_menu_settings">Remember sensors</string>
+    <string name="pref_savesensors">pref_savesensors</string>
+    <string name="file_menu_delete">Delete</string>
+    <string name="label_confirm_delete">Are you sure you want to delete the selected file?</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="label_menu_time">Set Time</string>
+    <string name="file_menu_set_id">Set Id</string>
+    <string name="file_menu_plot_data">Plot data</string>
+    <string name="file_menu_map_data">Map data</string>
+    
+    <string name="plot_menu_reset">Reset zoom</string>
+    <string name="plot_menu_screenshot">Export as image</string>
+
+    <string name="plot_graph_name">Plot a Graph</string>
+    <string name="plot_info_selectdata">Select data to plot</string>
+        
+    <string name="display_info_unavailable">Unavailable</string>
+    <string name="display_info_details">Details</string>
+    <string name="display_info_filename">File name: </string>
+    <string name="display_info_sensortype">Sensor type used: </string>
+    <string name="display_info_filesize">File size: </string>
+    <string name="display_info_timestamp">Timestamp: </string>
+    <string name="display_info_fileextension">File extension: </string>
+    
+
+    <string name="data_info_gas1">Gas #1</string>
+    <string name="data_info_gas2">Gas #2</string>
+    <string name="data_info_accelerometer">Accelerometer</string>
+    <string name="data_info_accelerometer_displacement">Accelerometer displacement</string>
+    <string name="data_info_light">Light levels</string>
+    <string name="data_info_sound">Sound levels</string>
+    <string name="data_info_temperature">Temperature</string>
+    <string name="data_info_humidity">Humidity</string>
+    <string name="data_info_gps">GPS positions</string>
+    
+    <string name="map_title">Map data</string>
+    <string name="map_graph_name">Create a Map</string>
+    <string name="map_info_selectdata">Select data to map</string>
+</resources>

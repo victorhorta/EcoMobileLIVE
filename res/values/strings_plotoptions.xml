@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="plotoptions_array">
+        <item>Gas #1</item>
+        <item>Gas #2</item>
+        <item>Accelerometer</item>
+        <item>Accelerometer displacement</item>
+        <item>Light levels</item>
+        <item>Sound levels</item>
+        <item>Temperature</item>
+        <item>Humidity</item>
+        <item>GPS positions</item>
+    </string-array>
+
+</resources>

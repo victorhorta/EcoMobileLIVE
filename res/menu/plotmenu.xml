@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/plot_menu_reset" android:title="@string/plot_menu_reset"></item>
+    <item android:id="@+id/plot_menu_screenshot" android:title="@string/plot_menu_screenshot"></item>
+</menu>

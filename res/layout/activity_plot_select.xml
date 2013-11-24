@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/display_info_details" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="20dp" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/display_info_filename"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/p_info_filename"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="@string/display_info_unavailable" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/display_info_filesize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/p_info_filesize"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="@string/display_info_unavailable" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/display_info_fileextension"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/p_info_fileextension"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="@string/display_info_unavailable" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/display_info_sensortype"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/p_info_sensortype"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="@string/display_info_unavailable" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/display_info_timestamp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/p_info_timestamp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="@string/display_info_unavailable" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/plot_info_selectdata" />
+
+    <ListView
+        android:id="@+id/plotoptions_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>
