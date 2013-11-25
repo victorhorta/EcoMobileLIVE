@@ -385,7 +385,7 @@ public class EcoCSVObject  implements Serializable {
                 return fileConfig.getUnitFromFieldLabel("PhotocellB");
             
             // Air Quality:
-            if (headerLabel.equals("Air Quality"))
+            if (headerLabel.equals("VOC levels"))
                 return fileConfig.getUnitFromFieldLabel("VOCPred");
                         
             // Gas #1:

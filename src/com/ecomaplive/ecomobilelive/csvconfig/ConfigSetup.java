@@ -18,7 +18,7 @@ public class ConfigSetup {
     //TODO: Modular names for variables instead of hard-coded ones!
     //TODO: Change hard-coded references all over csvconfig package...
     // final private static String COLUMN_VOC
-    // final private static String HEADER_VOC
+    // final private static String HEADER_VOC...
     
     
     static {
