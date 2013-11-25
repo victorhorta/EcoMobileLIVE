@@ -2,6 +2,8 @@ package com.ecomaplive.ecomobilelive;
 
 import java.util.ArrayList;
 
+import com.ecomaplive.ecomobilelive.collectdata.Explorer;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -64,62 +66,6 @@ public class Main extends Activity implements OnClickListener {
         
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
         getActionBar().setCustomView(R.layout.actionbar_centered);
-        
-        
-        
-//      try {
-////      Integer titleId = (Integer) Class.forName("com.android.internal.R$id")
-////              .getField("action_bar_title").get(null);
-////      TextView title = (TextView) getWindow().findViewById(titleId);
-//          View title = getWindow().findViewById(android.R.id.title);
-//          View titleBar = (View) title.getParent();
-//          titleBar.set
-//      // check for null and manipulate the title as see fit
-//      Log.d(TAG, "Success obtaining title reference: " + Integer.toString(titleId) + title.toString());
-//  } catch (Exception e) {
-//      Log.e(TAG, "Failed to obtain action bar title reference");
-//  }        
-   
-        
-//        try {
-//            Integer titleId = (Integer) Class.forName("com.android.internal.R$id")
-//                    .getField("action_bar_title").get(null);
-//            TextView title = (TextView) getWindow().findViewById(titleId);
-//            title.setGravity(Gravity.RIGHT);
-//            // check for null and manipulate the title as see fit
-//            Log.d(TAG, "Success obtaining title reference: " + Integer.toString(titleId) + title.toString());
-//        } catch (Exception e) {
-//            Log.e(TAG, "Failed to obtain action bar title reference");
-//        }
-        
-        
-        
-//        final boolean customTitleSupported = requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-//
-//        if ( customTitleSupported ) {
-//            getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.mytitle);
-//        }
-//
-//        final TextView myTitleText = (TextView) findViewById(R.id.myTitle);
-//        if ( myTitleText != null ) {
-//            myTitleText.setText("========= NEW TITLE ==========");
-//            myTitleText.setBackgroundColor(Color.GREEN);
-//        }
-//        
-//        
-//        // Centralizing the TitleBar
-////        try 
-//        {
-//            ((TextView) getWindow().getDecorView().findViewById(android.R.id.title))
-//                    .setGravity(Gravity.CENTER);
-//            Log.d(TAG, "Centralizing TitleBar text");
-//
-//        }
-////        catch (Exception e1) {
-////            e1.printStackTrace();
-////        }
-        
-
     }
 
     @Override
@@ -175,8 +121,8 @@ public class Main extends Activity implements OnClickListener {
         switch (v.getId()) {
         case R.id.imageButton_up_left:
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
-            // Intent i1 = new Intent(Main.this, ReadText.class);
-            // Main.this.startActivity(i1);
+            Intent i1 = new Intent(Main.this, Explorer.class);
+            Main.this.startActivity(i1);
             break;
         case R.id.imageButton_up_right:
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
@@ -194,8 +140,6 @@ public class Main extends Activity implements OnClickListener {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ecomaplive.com"));
             startActivity(browserIntent);
             
-            // Intent i3 = new Intent(Main.this, EditNodes.class);
-            // Main.this.startActivity(i3);
             break;
         default:
             Log.d(TAG, "onClicked: unexpected!");

@@ -74,6 +74,13 @@
             android:label="@string/map_title" >
         </activity>
         
+        <!-- 'collectdata' activities -->
+        <activity
+            android:name=".collectdata.Explorer"
+            android:label="Collect data" >
+        </activity>
+        <activity android:name=".collectdata.DevicePicker"></activity>
+        
         <!-- GoogleMaps API Key -->
          <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

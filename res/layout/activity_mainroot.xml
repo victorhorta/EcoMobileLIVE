@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutroot"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:id="@+id/buttonbar"
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5sp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:paddingBottom="5sp" >
+
+        <ToggleButton
+            android:id="@+id/togglebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+id/ToggleButton01"
+            android:textOff="Recording"
+            android:textOn="Recording" />
+
+        <Button
+            android:id="@+id/connect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:text="Connect" />
+
+        <Button
+            android:id="@+id/selectdevice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Sensor" />
+
+        <Button
+            android:id="@+id/enablebluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enable Bluetooth"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scroller"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/buttonbar"
+        android:layout_below="@+id/input"
+        android:layout_marginBottom="3sp"
+        android:layout_marginTop="3sp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:scrollbars="horizontal|vertical" >
+
+        <HorizontalScrollView
+            android:id="@+id/HorizontalScrollView01"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/buttonbar"
+            android:layout_below="@+id/input"
+            android:layout_toRightOf="@+id/scroller" >
+
+            <TextView
+                android:id="@+id/output"
+                style="@style/output"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_above="@+id/buttonbar"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/TextView01"
+                android:layout_marginBottom="2sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="2sp"
+                android:scrollHorizontally="true" />
+        </HorizontalScrollView>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/selections"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/TextView01"
+            style="@style/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
+            android:text="View this sensor:" />
+
+        <Spinner
+            android:id="@+id/selected"
+            style="@style/label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
+            android:prompt="@+string/spinner_prompt" >
+        </Spinner>
+
+        <TextView
+            android:id="@+id/empty"
+            style="?android:attr/buttonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="5sp"
+            android:clickable="false"
+            android:text="None selected" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/selections"
+        android:stretchColumns="1" >
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/eda"
+                android:layout_width="fill_parent"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:text="EDA (mho)  :0.000000000000000"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/temp"
+                android:layout_width="fill_parent"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:text="Temp (C)  :0.0000000"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/acceleration"
+                android:layout_width="fill_parent"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:text="Accel : 0"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/battery"
+                android:layout_width="fill_parent"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:text="Battery (Volts)  : 0.000000"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/edaBias"
+                android:layout_width="fill_parent"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:text="EdaBias (units)  : 0.000000"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/edaP"
+                android:layout_width="fill_parent"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:text="EdaP (units)  : 0.00000"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/heartRate"
+                android:layout_width="fill_parent"
+                android:clickable="true"
+                android:gravity="left"
+                android:paddingBottom="10dip"
+                android:paddingTop="10dip"
+                android:text="Heart Rate (BPM)  : 0.00000"
+                android:textSize="20.0sp"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

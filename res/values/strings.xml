@@ -48,4 +48,8 @@
     <string name="map_title">Map data</string>
     <string name="map_graph_name">Create a Map</string>
     <string name="map_info_selectdata">Select data to map</string>
+    
+    <!-- These are being used for 'collectdata'  -->
+    <string name="pref_sensors">pref_sensors</string>
+    
 </resources>
