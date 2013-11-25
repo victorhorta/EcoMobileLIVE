@@ -413,42 +413,49 @@ public class DataPlot extends Activity implements OnTouchListener {
             mExternalStorageAvailable = true;
         } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
             // We can only read the media
-            mExternalStorageAvailable = true;
+            mExternalStorageAvailable = false;
         } else {
             // Something else is wrong. It may be one of many other states, but
-            // all we need
-            // to know is we can neither read nor write
+            // all we need to know is we can neither read nor write
             mExternalStorageAvailable = false;
         }
         
         if (mExternalStorageAvailable) {
-            File parentDirectory = new File(Environment.getExternalStorageDirectory(),
-                    DataExplorer.STORAGE_DIR);
-            if (parentDirectory.exists()) {
-                //dealing with the fileName:
-                fileName = fileName.replaceAll("[\\/:\"*?<>|%\0]+", "");
-                if(fileName.isEmpty())
-                    fileName = new SimpleDateFormat("yyyyMMddhhmmss'.png'").format(new Date());
-                
-                String fileType = ".png";
-                FileOutputStream fos;
-                try {
-                    fos = new FileOutputStream(parentDirectory.getAbsolutePath() + File.separator + fileName + fileType, true);
-                    bmp.compress(CompressFormat.PNG, 100, fos);
-                    fos.flush();
-                    fos.close();
-                    
-                    Toast.makeText(getBaseContext(), "Image '" + fileName + "' saved.",
+            File parentDirectory = new File(Environment.getExternalStorageDirectory() +
+                    DataExplorer.STORAGE_DIR_SCREENSHOTS);
+
+            if (!parentDirectory.exists()) {
+                if (parentDirectory.mkdirs()) {
+                    Toast.makeText(getBaseContext(), "Unable to set image folder.",
                             Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "Image created at: " + parentDirectory.getAbsolutePath() + File.separator + fileName);
-                } catch (FileNotFoundException e) {
-                    Toast.makeText(getBaseContext(), "Error creating image.",
-                            Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    return;
                 }
-                
+            }
+            Log.d(TAG, "image " + parentDirectory.getAbsolutePath());
+            // dealing with the fileName:
+            fileName = fileName.replaceAll("[\\/:\"*?<>|%\0]+", "");
+            if (fileName.isEmpty())
+                fileName = new SimpleDateFormat("yyyyMMddhhmmss'.png'").format(new Date());
+
+            String fileType = ".png";
+            FileOutputStream fos;
+            try {
+                fos = new FileOutputStream(parentDirectory.getAbsolutePath() + File.separator
+                        + fileName + fileType, true);
+                bmp.compress(CompressFormat.PNG, 100, fos);
+                fos.flush();
+                fos.close();
+
+                Toast.makeText(getBaseContext(), "Image '" + fileName + "' saved.",
+                        Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Image created at: " + parentDirectory.getAbsolutePath()
+                        + File.separator + fileName);
+            } catch (FileNotFoundException e) {
+                Toast.makeText(getBaseContext(), "Error creating image.", Toast.LENGTH_SHORT)
+                        .show();
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

@@ -86,8 +86,8 @@ public class DataPlotSelect extends Activity implements OnItemClickListener {
         listView = (ListView) findViewById(R.id.plotoptions_list);
         
         //String[] plotOptions = fileAlreadyParsed.getHeaderData();
-        String[] plotOptions = new String[fileAlreadyParsed.headerLabels.size()];
-        plotOptions = (String[]) fileAlreadyParsed.headerLabels.toArray(new String[fileAlreadyParsed.headerLabels.size()]);
+        String[] plotOptions = new String[fileAlreadyParsed.getHeaderPlotLabels().size()];
+        plotOptions = (String[]) fileAlreadyParsed.getHeaderPlotLabels().toArray(new String[fileAlreadyParsed.getHeaderPlotLabels().size()]);
         //String[] plotOptions = getResources().getStringArray(R.array.plotoptions_array);
         
         // Row layout defined by Android: android.R.layout.simple_list_item_1

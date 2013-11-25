@@ -22,6 +22,7 @@ public class CSVConfig implements VersionConfig {
     final private String versionNumberAsText;
     final private String sensorName;
     final private List<CSVField> orderedFields;
+    final private boolean hasGPSFields;
     
     /**
      * @param versionId
@@ -30,11 +31,12 @@ public class CSVConfig implements VersionConfig {
      *            requires all names to be unique. Also requires the versionId
      *            to be stored at the 0-position of the CSV file.
      */
-    public CSVConfig(int versionId, String sensorName, List<CSVField> orderedFields){
+    public CSVConfig(int versionId, String sensorName, boolean hasGPS, List<CSVField> orderedFields){
         this.versionId = versionId;
         this.versionNumberAsText = orderedFields.get(0).getUnit();
         this.sensorName = sensorName;
-        this.orderedFields = orderedFields;         
+        this.orderedFields = orderedFields;
+        this.hasGPSFields = hasGPS;
     }
     
     @Override
@@ -85,6 +87,10 @@ public class CSVConfig implements VersionConfig {
          return headerColumnsLabels;
     }
     
+    @Override
+    public boolean hasGPSFields() {
+        return hasGPSFields;
+    }    
     
     
     /**
@@ -233,5 +239,5 @@ public class CSVConfig implements VersionConfig {
                 headerLabels.add("Gas #2 precise");
         }
         return headerLabels;
-    }    
+    }
 }

@@ -72,4 +72,9 @@ public interface VersionConfig {
      * @return a List containing all column labels from the csv file.
      */
     public List<String> getHeaderColumnsLabels();
+    
+    /**
+     * @return if the current version is capable of collecting GPS data.
+     */
+    public boolean hasGPSFields();
 }

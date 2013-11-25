@@ -23,9 +23,10 @@ public class ConfigSetup {
          * To add new CSV configs, just create a new CSVConfig instance by
          * following the examples:
          */
-            // ECOMINI: 3002
-            new CSVConfig(3002,
+            // ECOMINI: 0002
+            new CSVConfig(0002,
                     "ECOMINI",
+                    true,
                     Arrays.asList(
                             new CSVField("SensorVersion", "1.3"),
                             new CSVField("Time", "s"),
@@ -53,9 +54,10 @@ public class ConfigSetup {
                     )
             ),
                               
-            // ECOMONITOR: 3001
-            new CSVConfig(3001,
+            // ECOMONITOR: 0001
+            new CSVConfig(0001,
                     "ECOMONITOR",
+                    true,
                     Arrays.asList(
                             new CSVField("SensorVersion", "1.1"),
                             new CSVField("Time", "s"),

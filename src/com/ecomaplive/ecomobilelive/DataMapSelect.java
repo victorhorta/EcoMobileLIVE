@@ -84,8 +84,8 @@ public class DataMapSelect extends Activity implements OnItemClickListener {
         // ListView of map options
         listView = (ListView) findViewById(R.id.mapoptions_list);
         
-        String[] mapOptions = new String[fileAlreadyParsed.headerLabels.size()];
-        mapOptions = (String[]) fileAlreadyParsed.headerLabels.toArray(new String[fileAlreadyParsed.headerLabels.size()]);
+        String[] mapOptions = new String[fileAlreadyParsed.getHeaderMapLabels().size()];
+        mapOptions = (String[]) fileAlreadyParsed.getHeaderMapLabels().toArray(new String[fileAlreadyParsed.getHeaderMapLabels().size()]);
         
         // Row layout defined by Android: android.R.layout.simple_list_item_1
         listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
@@ -107,10 +107,8 @@ public class DataMapSelect extends Activity implements OnItemClickListener {
             intentToBePassedToDataMapClass.putExtra("graph_data", fileAlreadyParsed.getInfoPointsToBeMapped(arg2));
             startActivity(intentToBePassedToDataMapClass);            
         } else {
-            Toast.makeText(getBaseContext(), "GPS data not available.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "This CSV file does not have any GPS data.", Toast.LENGTH_SHORT).show();
         }
-        
-        
     }
     
     

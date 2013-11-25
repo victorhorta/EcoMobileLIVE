@@ -2,8 +2,10 @@ package com.ecomaplive.ecomobilelive;
 
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -13,15 +15,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class DataManager extends ListActivity {
     @Override
@@ -95,7 +97,12 @@ public class DataManager extends ListActivity {
             File parentDirectory = new File(Environment.getExternalStorageDirectory(),
                     DataExplorer.STORAGE_DIR);
             if (parentDirectory.exists()) {
-                File[] f = parentDirectory.listFiles();
+                File[] f = parentDirectory.listFiles(new FilenameFilter() {
+                    public boolean accept(File dir, String name) {
+                        return (name.substring(Math.max(0, name.length() - 4)).toLowerCase(
+                                Locale.ENGLISH).equals(".csv"));
+                    }
+                });
                 if (f != null && f.length > 0) {
                     res = new ArrayList<File>(f.length);
                     for (int i = 0, j = f.length; i < j; i++)

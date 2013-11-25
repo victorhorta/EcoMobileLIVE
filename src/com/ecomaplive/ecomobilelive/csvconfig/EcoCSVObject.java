@@ -3,6 +3,7 @@ package com.ecomaplive.ecomobilelive.csvconfig;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,9 +17,13 @@ import au.com.bytecode.opencsv.CSVReader;
  * @author Victor
  *
  */
-public class EcoCSVObject {
+// Serializable interface allows us to pass an instance of an EcoCSVObject to another Activity
+@SuppressWarnings("serial")
+public class EcoCSVObject  implements Serializable {
     final static private String TAG = "EcoCSVObject";
     static String NO_GPS = new String("!!!NO-GPS!!!");
+    
+    private boolean hasGPS;
     
     private String filePath;
     private CSVConfig fileConfig;
@@ -28,7 +33,7 @@ public class EcoCSVObject {
     private ArrayList<String> headerMapLabels;
     private ArrayList<String> headerColumnLabels;
     
-    EcoCSVObject(String pathOfCSVFileToBeParsed) {
+    public EcoCSVObject(String pathOfCSVFileToBeParsed) {
         this.filePath = pathOfCSVFileToBeParsed;
 
         try {
@@ -48,6 +53,18 @@ public class EcoCSVObject {
             headerPlotLabels = fileConfig.getHeaderPlotLabels();
             headerMapLabels = fileConfig.getHeaderMapLabels();
             headerColumnLabels = fileConfig.getHeaderColumnsLabels();
+            
+            // We will check here if the data has at least one line containing GPS data.
+            if (fileConfig.getFieldIndex("Latitude") != -1
+                    && fileConfig.getFieldIndex("Longitude") != -1) {
+                while ((nextLine = reader.readNext()) != null) {
+                    hasGPS = !(nextLine[fileConfig.getFieldIndex("Latitude")].equals(NO_GPS) || nextLine[fileConfig
+                            .getFieldIndex("Longitude")].equals(NO_GPS));
+                    
+                    if (hasGPS)
+                        break;
+                }
+            }
             
             // Closing the reader
             reader.close();
@@ -117,7 +134,7 @@ public class EcoCSVObject {
     
     /**
      * @param dataNameOnPlotHeader
-     *            The respective CSV column label.
+     *            The respective CSV Plot label.
      * @param onlyDataWithGPS
      *            boolean that indicates to retrieve only data containing valid
      *            GPS information (those containing 'NO_GPS' are discarded).
@@ -438,4 +455,29 @@ public class EcoCSVObject {
         //TODO: Gas levels calc!!
         return GasWe;
     }
+    
+    public boolean hasGPS() {
+        return hasGPS;
+    }
+    
+    public String getSensorName() {
+        return fileConfig.getSensorName();
+    }
+    
+    public Timestamp getFirstTime() {
+        return firstTime;
+    }
+    
+    public ArrayList<String> getHeaderPlotLabels() {
+        return headerPlotLabels;
+    }
+    
+    public ArrayList<String> getHeaderMapLabels() {
+        return headerMapLabels;
+    }
+    
+    public ArrayList<String> getHeaderColumnLabels() {
+        return headerColumnLabels;
+    }
+    
 }
