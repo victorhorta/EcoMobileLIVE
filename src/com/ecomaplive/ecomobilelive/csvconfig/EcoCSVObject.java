@@ -109,7 +109,7 @@ public class EcoCSVObject  implements Serializable {
                     
                     //TODO: CALL HELPER METHODS HERE TO GET THE DATA ACCORDING TO THE CORRESPONDING FUNCTION!
                     // if dataName equals "Gas1..." add ...
-                    // else if dataName equals "IAQ..." add ...
+                    // else if dataName equals "VOC..." add ...
                     dataRetrievedFromCSV.add(new String(nextLine[fileConfig.getFieldIndex(dataNameOnCsv)]));                        
                 }
 
@@ -313,9 +313,9 @@ public class EcoCSVObject  implements Serializable {
                 return nextline[fileConfig.getFieldIndex("PhotocellB")];
             
             // Air Quality:
-            if (headerLabel.equals("Air Quality"))
-                return calculateAirQuality(nextline[fileConfig.getFieldIndex("IAQPred")],
-                        nextline[fileConfig.getFieldIndex("IAQRes")]);
+            if (headerLabel.equals("VOC levels"))
+                return calculateAirQuality(nextline[fileConfig.getFieldIndex("VOCPred")],
+                        nextline[fileConfig.getFieldIndex("VOCRes")]);
             
             // Gas #1:
             if (headerLabel.equals("Gas #1"))
@@ -386,7 +386,7 @@ public class EcoCSVObject  implements Serializable {
             
             // Air Quality:
             if (headerLabel.equals("Air Quality"))
-                return fileConfig.getUnitFromFieldLabel("IAQPred");
+                return fileConfig.getUnitFromFieldLabel("VOCPred");
                         
             // Gas #1:
             if (headerLabel.equals("Gas #1"))
@@ -435,13 +435,13 @@ public class EcoCSVObject  implements Serializable {
     /**
      * Calculates the air quality using a more precise algorithm.
      * 
-     * @param IAQPred
-     * @param IAQRes
+     * @param VOCPred
+     * @param VOCRes
      * @return
      */
-    public String calculateAirQuality(String IAQPred, String IAQRes) {
+    public String calculateAirQuality(String VOCPred, String VOCRes) {
         //TODO: Air Quality calc!!
-        return IAQPred;
+        return VOCPred;
     }
     
     /**

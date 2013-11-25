@@ -96,7 +96,7 @@ public class CSVConfig implements VersionConfig {
     /**
      * Returns an ArrayList of Strings consisting of the plottable data of the CSV.<br>
      * Excludes the Sensor and the Time fields; combines Accel coordinates into
-     * a single value; combines IAQs into a single value.
+     * a single value; combines VOCs into a single value.
      * 
      */
     public ArrayList<String> getHeaderPlotLabels() {
@@ -142,9 +142,9 @@ public class CSVConfig implements VersionConfig {
             headerLabels.add("Blue Levels");
         
         // Air Quality:
-        if (getFieldIndex("IAQPred") != -1
-                && getFieldIndex("IAQRes") != -1)
-            headerLabels.add("Air Quality");
+        if (getFieldIndex("VOCPred") != -1
+                && getFieldIndex("VOCRes") != -1)
+            headerLabels.add("VOC levels");
         
         // Gas #1 Levels:
         if (getFieldIndex("Gas1PPB") != -1)
@@ -170,7 +170,7 @@ public class CSVConfig implements VersionConfig {
     /**
      * Returns an ArrayList of Strings consisting of the mappable data of the CSV.<br>
      * Excludes the Sensor and the Time fields; combines Accel coordinates into
-     * a single value; combines IAQs into a single value.
+     * a single value; combines VOCs into a single value.
      * 
      */
     public ArrayList<String> getHeaderMapLabels() {
@@ -216,9 +216,9 @@ public class CSVConfig implements VersionConfig {
                 headerLabels.add("Blue Levels");
             
             // Air Quality:
-            if (getFieldIndex("IAQPred") != -1
-                    && getFieldIndex("IAQRes") != -1)
-                headerLabels.add("Air Quality");
+            if (getFieldIndex("VOCPred") != -1
+                    && getFieldIndex("VOCRes") != -1)
+                headerLabels.add("VOC levels");
             
             // Gas #1 Levels:
             if (getFieldIndex("Gas1PPB") != -1)

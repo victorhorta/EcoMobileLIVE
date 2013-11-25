@@ -15,6 +15,12 @@ import java.util.Map;
 public class ConfigSetup {
     final private static Map<Integer, CSVConfig> availableConfigs;
     
+    //TODO: Modular names for variables instead of hard-coded ones!
+    //TODO: Change hard-coded references all over csvconfig package...
+    // final private static String COLUMN_VOC
+    // final private static String HEADER_VOC
+    
+    
     static {
         Map<Integer, CSVConfig> allConfigs = new HashMap<Integer, CSVConfig>();
         //List<CSVConfig> tempConfig = new ArrayList<CSVConfig>();
@@ -37,13 +43,13 @@ public class ConfigSetup {
                             new CSVField("AccelY", "m/s"),
                             new CSVField("AccelZ", "m/s"),
                             new CSVField("Temperature", "C"),
-                            new CSVField("Humidity", "ppm"),
+                            new CSVField("Humidity", "RH%"),
                             new CSVField("PhotocellIR", ""),
                             new CSVField("PhotocellR", "R"),
                             new CSVField("PhotocellG", "G"),
                             new CSVField("PhotocellB", "B"),
-                            new CSVField("IAQPred", "%"),
-                            new CSVField("IAQRes", "%"),
+                            new CSVField("VOCPred", "%"),
+                            new CSVField("VOCRes", "%"),
                             new CSVField("Gas1PPB","%"),
                             new CSVField("Gas1We", "%"),
                             new CSVField("Gas1Aux", "%"),
@@ -73,8 +79,8 @@ public class ConfigSetup {
                             new CSVField("PhotocellR", "R"),
                             new CSVField("PhotocellG", "G"),
                             new CSVField("PhotocellB", "B"),
-                            new CSVField("IAQPred", "%"),
-                            new CSVField("IAQRes", "%"),
+                            new CSVField("VOCPred", "%"),
+                            new CSVField("VOCRes", "%"),
                             new CSVField("Gas1PPB","%"),
                             new CSVField("Gas1We", "%"),
                             new CSVField("Gas1Aux", "%"),
