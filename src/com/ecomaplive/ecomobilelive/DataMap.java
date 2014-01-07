@@ -26,8 +26,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
  *
  */
 public class DataMap extends Activity{
-    static final LatLng HAMBURG = new LatLng(53.558, 9.927);
-    static final LatLng KIEL = new LatLng(53.551, 9.993);
     private GoogleMap map;
     ArrayList<ArrayList<String>> overallList;
     

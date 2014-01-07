@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
     <!-- the theme applied to the application or activity -->
     <style name="GreenActionBarTheme" parent="@android:style/Theme.Holo">
         <item name="android:actionBarStyle">@style/GreenActionBar</item>
+        <item name="android:windowBackground">@color/CustomAppBg</item>
+        <!-- 
+        <item name="android:buttonStyle">@style/CustomStyleButton</item>
+         -->
+         <item name="android:actionBarTabBarStyle">@style/CustomTabBarStyleButton</item>
+    </style>
+
+    <!-- ActionBar and button styles -->
+    <style name="GreenActionBar" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@color/CustomActionBarBg</item>
+    </style>
+    
+    <style name="CustomStyleButton" parent="@android:style/Widget.Holo.Button">
+        <item name="android:background">@color/CustomButtonsBg</item>
+    </style>
+    
+    <style name="CustomTabBarStyleButton" parent="@android:style/Widget.Holo.ActionBar.TabBar" tools:targetApi="13">
+        <item name="android:background">@color/CustomButtonsBg</item>
+    </style>
+
+    
+    <!-- OLD VALUES AND THEMES ************************************************ -->
+    <!-- the OLD theme applied to the application or activity -->
+    <style name="GreenActionBarThemeOLD" parent="@android:style/Theme.Holo">
+        <item name="android:actionBarStyle">@style/GreenActionBar</item>
         <item name="android:windowBackground">@color/BackgroundMapLive2</item>
     </style>
 
-    <!-- ActionBar styles -->
-    <style name="GreenActionBar" parent="@android:style/Widget.Holo.ActionBar">
+    <!-- OLD ActionBar styles -->
+    <style name="GreenActionBarOLD" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">@color/BackgroundMapLive</item>
     </style>
 

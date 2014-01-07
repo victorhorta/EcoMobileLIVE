@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -31,6 +31,10 @@
     </style>
     <style name="defaultsize" parent="AppTheme">
         <item name="android:textSize">20sp</item>
+    </style>
+    
+    <style name="boldtext" parent="AppTheme">
+        <item name="android:textStyle">bold</item>
     </style>
     
 </resources>

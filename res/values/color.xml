@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+ <color name="CustomActionBarBg">#233023</color> <!-- OK - decimal 35,48,35 -->
+ <color name="CustomAppBg">#0A240A</color> <!-- OK - decimal 10,36,10 -->
+ <color name="CustomButtonsBg">#4B5A4B</color> <!-- OK - decimal 75,90,75 -->
  <color name="BackgroundMapLive2">#002B00</color>
  <color name="BackgroundMapLive">#1F411F</color>
- <color name="AndroidGreenLight">#99CC00</color>
  <color name="AndroidGreenLight">#99CC00</color>
  <color name="AndroidGreenDark">#669900</color>
  <color name="White">#FFFFFF</color>

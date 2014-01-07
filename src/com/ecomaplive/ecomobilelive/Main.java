@@ -3,6 +3,7 @@ package com.ecomaplive.ecomobilelive;
 import java.util.ArrayList;
 
 import com.ecomaplive.ecomobilelive.collectdata.Explorer;
+import com.ecomaplive.ecomobilelive.fragments.MainFragments;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -121,7 +122,7 @@ public class Main extends Activity implements OnClickListener {
         switch (v.getId()) {
         case R.id.imageButton_up_left:
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
-            Intent i1 = new Intent(Main.this, Explorer.class);
+            Intent i1 = new Intent(Main.this, MainFragments.class);
             Main.this.startActivity(i1);
             break;
         case R.id.imageButton_up_right:

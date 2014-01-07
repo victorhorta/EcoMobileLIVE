@@ -4,6 +4,4 @@
     <item android:id="@+id/menu_plot_data" android:title="@string/file_menu_plot_data"></item>
     <item android:id="@+id/menu_map_data" android:title="@string/file_menu_map_data"></item>
 	<item android:id="@+id/menu_delete" android:title="@string/file_menu_delete"></item>
-	<item android:id="@+id/menu_set_time" android:title="@string/label_menu_time"></item>
-	<item android:id="@+id/menu_set_id" android:title="@string/file_menu_set_id"></item>
 </menu>

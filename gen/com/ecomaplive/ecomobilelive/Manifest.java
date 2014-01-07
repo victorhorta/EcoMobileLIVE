@@ -9,7 +9,7 @@ package com.ecomaplive.ecomobilelive;
 
 public final class Manifest {
     public static final class permission {
-        /**   GoogleMaps API permission requirements - START 
+        /**  GoogleMaps API permission requirements - START 
          */
         public static final String MAPS_RECEIVE="com.ecomaplive.ecomobilelive.permission.MAPS_RECEIVE";
     }

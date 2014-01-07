@@ -31,67 +31,71 @@ public class DataMapSelect extends Activity implements OnItemClickListener {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map_select);
-        
-        // Creating the list of TextViews
-        showInfo = new ArrayList<TextView>();
-        
-        // Retrieving file to be mapped
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            String filePath = extras.getString("file_path");
-            fileToBeMapped = new File(filePath);
+        try{
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_map_select);
             
-            // Extracting the file name and extension
-            String fileName = new String(
-                                        filePath.substring(filePath.lastIndexOf("/"))
-                                        );
-            String extension = fileName.substring(fileName.lastIndexOf("."));
+            // Creating the list of TextViews
+            showInfo = new ArrayList<TextView>();
             
-            fileName = new String(
-                    fileName.substring(1, fileName.length() - extension.length())
-                    );
+            // Retrieving file to be mapped
+            Bundle extras = getIntent().getExtras();
+            if (extras != null) {
+                String filePath = extras.getString("file_path");
+                fileToBeMapped = new File(filePath);
+                
+                // Extracting the file name and extension
+                String fileName = new String(
+                                            filePath.substring(filePath.lastIndexOf("/"))
+                                            );
+                String extension = fileName.substring(fileName.lastIndexOf("."));
+                
+                fileName = new String(
+                        fileName.substring(1, fileName.length() - extension.length())
+                        );
+                
+                
+                // Starting parsing procedure
+                fileAlreadyParsed = new EcoCSVObject(filePath);
+                
+                showInfo.add((TextView)findViewById(R.id.p_info_filename));
+                showInfo.add((TextView)findViewById(R.id.p_info_fileextension));
+                showInfo.add((TextView)findViewById(R.id.p_info_filesize));
+                showInfo.add((TextView)findViewById(R.id.p_info_sensortype));
+                showInfo.add((TextView)findViewById(R.id.p_info_timestamp));
+                
+    
+                
+                Log.d(TAG, "filename: " + fileName);
+                Log.d(TAG, "filepath: " + filePath);
+                Log.d(TAG, "extension: " + extension);
+                
+                showInfo.get(0).setText(fileName);
+                showInfo.get(1).setText(extension);
+                showInfo.get(2).setText(Long.toString(fileToBeMapped.length())+" B");
+                showInfo.get(3).setText(fileAlreadyParsed.getSensorName());
+    
+                if (fileAlreadyParsed != null)
+                    showInfo.get(4).setText(fileAlreadyParsed.getFirstTime().toString());
+                
+                
+            }
+    
+    
+            // ListView of map options
+            listView = (ListView) findViewById(R.id.mapoptions_list);
             
+            String[] mapOptions = new String[fileAlreadyParsed.getHeaderMapLabels().size()];
+            mapOptions = (String[]) fileAlreadyParsed.getHeaderMapLabels().toArray(new String[fileAlreadyParsed.getHeaderMapLabels().size()]);
             
-            // Starting parsing procedure
-            fileAlreadyParsed = new EcoCSVObject(filePath);
-            
-            showInfo.add((TextView)findViewById(R.id.p_info_filename));
-            showInfo.add((TextView)findViewById(R.id.p_info_fileextension));
-            showInfo.add((TextView)findViewById(R.id.p_info_filesize));
-            showInfo.add((TextView)findViewById(R.id.p_info_sensortype));
-            showInfo.add((TextView)findViewById(R.id.p_info_timestamp));
-            
-
-            
-            Log.d(TAG, "filename: " + fileName);
-            Log.d(TAG, "filepath: " + filePath);
-            Log.d(TAG, "extension: " + extension);
-            
-            showInfo.get(0).setText(fileName);
-            showInfo.get(1).setText(extension);
-            showInfo.get(2).setText(Long.toString(fileToBeMapped.length())+" B");
-            showInfo.get(3).setText(fileAlreadyParsed.getSensorName());
-
-            if (fileAlreadyParsed != null)
-                showInfo.get(4).setText(fileAlreadyParsed.getFirstTime().toString());
-            
-            
+            // Row layout defined by Android: android.R.layout.simple_list_item_1
+            listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                    mapOptions));
+            listView.setOnItemClickListener(this);
+        } catch (Exception e) {
+            Toast.makeText(getBaseContext(), "Invalid file format.", Toast.LENGTH_SHORT).show();
+            this.finish();
         }
-
-
-        // ListView of map options
-        listView = (ListView) findViewById(R.id.mapoptions_list);
-        
-        String[] mapOptions = new String[fileAlreadyParsed.getHeaderMapLabels().size()];
-        mapOptions = (String[]) fileAlreadyParsed.getHeaderMapLabels().toArray(new String[fileAlreadyParsed.getHeaderMapLabels().size()]);
-        
-        // Row layout defined by Android: android.R.layout.simple_list_item_1
-        listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                mapOptions));
-        listView.setOnItemClickListener(this);
-        
     }
     @Override
     public void onItemClick(AdapterView<?> listAdapter, View arg1, int arg2, long arg3) {

@@ -29,8 +29,8 @@ public class ConfigSetup {
          * To add new CSV configs, just create a new CSVConfig instance by
          * following the examples:
          */
-            // ECOMINI: 0002
-            new CSVConfig(0002,
+            // ECOMINI: 02
+            new CSVConfig(02,
                     "ECOMINI",
                     true,
                     Arrays.asList(
@@ -39,15 +39,16 @@ public class ConfigSetup {
                             new CSVField("Latitude", "Lat"),
                             new CSVField("Longitude", "Long"),
                             new CSVField("BatteryV", "V"),
-                            new CSVField("AccelX", "m/s"),
-                            new CSVField("AccelY", "m/s"),
-                            new CSVField("AccelZ", "m/s"),
+                            new CSVField("AccelX", "m/s2"),
+                            new CSVField("AccelY", "m/s2"),
+                            new CSVField("AccelZ", "m/s2"),
                             new CSVField("Temperature", "C"),
                             new CSVField("Humidity", "RH%"),
-                            new CSVField("PhotocellIR", ""),
+                            new CSVField("PhotocellIR", "IR"),
                             new CSVField("PhotocellR", "R"),
                             new CSVField("PhotocellG", "G"),
                             new CSVField("PhotocellB", "B"),
+                            new CSVField("Sound", ""),
                             new CSVField("VOCPred", "%"),
                             new CSVField("VOCRes", "%"),
                             new CSVField("Gas1PPB","%"),

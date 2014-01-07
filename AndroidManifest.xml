@@ -10,8 +10,8 @@
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    
-    <!--  GoogleMaps API permission requirements - START -->
+
+    <!-- GoogleMaps API permission requirements - START -->
     <permission
         android:name="com.ecomaplive.ecomobilelive.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -20,22 +20,22 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.ecomaplive.ecomobilelive.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--  GoogleMaps API permission requirements - END -->
-    
+    <!-- GoogleMaps API permission requirements - END -->
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/GreenActionBarTheme" >
         <activity
-            android:name=".Main"
+            android:name="com.ecomaplive.ecomobilelive.Main"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,54 +43,90 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
-            android:name=".DataManager"
+            android:name="com.ecomaplive.ecomobilelive.DataManager"
             android:label="@string/database_name" >
         </activity>
-        
         <activity
-            android:name=".DataManagerMain"
+            android:name="com.ecomaplive.ecomobilelive.DataManagerMain"
             android:label="@string/database_name" >
         </activity>
-        
         <activity
-            android:name=".DataPlotSelect"
+            android:name="com.ecomaplive.ecomobilelive.DataPlotSelect"
             android:label="@string/plot_graph_name" >
         </activity>
-        
         <activity
-            android:name=".DataPlot"
+            android:name="com.ecomaplive.ecomobilelive.DataPlot"
             android:label="@string/plot_graph_name" >
         </activity>
-        
         <activity
-            android:name=".DataMapSelect"
+            android:name="com.ecomaplive.ecomobilelive.DataMapSelect"
             android:label="@string/map_graph_name" >
         </activity>
-        
         <activity
-            android:name=".DataMap"
+            android:name="com.ecomaplive.ecomobilelive.DataMap"
             android:label="@string/map_title" >
         </activity>
-        
+
         <!-- 'collectdata' activities -->
         <activity
-            android:name=".collectdata.Explorer"
+            android:name="com.ecomaplive.ecomobilelive.collectdata.Explorer"
             android:label="Collect data" >
         </activity>
-        <activity android:name=".collectdata.DevicePicker"></activity>
-        
+        <activity android:name="com.ecomaplive.ecomobilelive.collectdata.DevicePicker" >
+        </activity>
+
         <!-- GoogleMaps API Key -->
-         <meta-data
+        <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDlACtsFKcqXS_mmhiLyHpNgBUPgRuE93A" />
-         <meta-data 
-             android:name="com.google.android.gms.version"
-             android:value="@integer/google_play_services_version" />
-         
-    </application>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
-    
+        <activity
+            android:name="com.ecomaplive.ecomobilelive.btmanager.DeviceSettings"
+            android:label="@string/title_activity_device_settings" >
+        </activity>
+        <activity
+            android:name="com.ecomaplive.ecomobilelive.btmanager.DeviceArea"
+            android:label="@string/title_activity_device_area" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ecomaplive.ecomobilelive.Main" />
+        </activity>
+        <activity
+            android:name="com.ecomaplive.ecomobilelive.btmanager.DeviceSelect"
+            android:label="@string/title_activity_device_select" >
+        </activity>
+        
+        <!-- Fragments section -->
+        <activity
+            android:name="com.ecomaplive.ecomobilelive.fragments.MainFragments"
+            android:label="Device interface"
+            android:windowSoftInputMode="stateUnchanged" >
+        </activity>
+        
+        
+        
+        <!-- BTService related -->
+        <service
+            android:name="com.ecomaplive.ecomobilelive.btmanager.BTService"
+            android:exported="false" />
+        
+        <activity android:name="com.ecomaplive.ecomobilelive.btconnect.DeviceListActivity"
+                  android:label="Select a device"
+                  android:configChanges="orientation|keyboardHidden"
+                  android:theme="@android:style/Theme.Holo.Dialog" />
+        
+        <activity android:name="com.ecomaplive.ecomobilelive.btmanager.DeviceListActivity"
+                  android:label="Select a device"
+                  android:configChanges="orientation|keyboardHidden"
+                  android:theme="@android:style/Theme.Holo.Dialog" />
+        <service
+            android:name="com.ecomaplive.ecomobilelive.btconnect.MyService"
+            android:enabled="true" />
+
+    </application>
 
 </manifest>
