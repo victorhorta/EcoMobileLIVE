@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select device" />
+
+    <RadioGroup
+        android:id="@+id/frag_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RadioButton
+            android:id="@+id/radio_ecomonitor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="EcoMonitor" />
+
+        <RadioButton
+            android:id="@+id/radio_ecomini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EcoMini" />
+
+        <RadioButton
+            android:id="@+id/radio_econano"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EcoNano" />
+        
+        <RadioButton
+            android:id="@+id/radio_aircasting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AirCasting" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button_listdevices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="List available devices" />
+
+</LinearLayout>
