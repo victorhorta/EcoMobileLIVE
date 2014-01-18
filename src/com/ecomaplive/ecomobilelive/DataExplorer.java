@@ -3,15 +3,21 @@ package com.ecomaplive.ecomobilelive;
 import java.io.File;
 
 import android.os.Build;
+import android.os.Environment;
 
 public class DataExplorer {
     public static final String STORAGE_DIR = "EcoMapLIVE";
+    
+    
     
     public static final String STORAGE_DIR_SCREENSHOTS = File.separator + "EcoMapLIVE"
                                                        + File.separator + "Screenshots";
     
 	public static final String STORAGE_DIR_CSVSESSIONS = File.separator + "EcoMapLIVE" 
 													   + File.separator + "Sessions";
+	
+	public static final String STORAGE_DIR_FILEPICKER_START = Environment.getExternalStorageDirectory().getPath() 
+	                                                   + STORAGE_DIR_CSVSESSIONS + File.separator;
 	
 	public static String getDeviceName() {
 		String manufacturer = Build.MANUFACTURER;

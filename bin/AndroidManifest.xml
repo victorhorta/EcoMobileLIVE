@@ -67,6 +67,11 @@
             android:name="com.ecomaplive.ecomobilelive.DataMap"
             android:label="@string/map_title" >
         </activity>
+        
+        <activity
+            android:name="com.ecomaplive.ecomobilelive.filepicker.FileChooser"
+            android:label="File Picker" >
+        </activity>
 
         <!-- 'collectdata' activities -->
         <activity

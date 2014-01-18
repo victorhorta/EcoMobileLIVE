@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,8 +96,33 @@ public class DataPlot extends Activity implements OnTouchListener {
         mySimpleXYPlot.getGraphWidget().getBackgroundPaint().setColor(Color.TRANSPARENT);
         mySimpleXYPlot.getGraphWidget().setRangeValueFormat(
                 new DecimalFormat("#####"));
-        mySimpleXYPlot.getGraphWidget().setDomainValueFormat(
-                new DecimalFormat("#####.#"));
+        
+        // Changing timestamp domain value format
+        //mySimpleXYPlot.getGraphWidget().setDomainValueFormat(
+        //        new DecimalFormat("#####.#"));
+        mySimpleXYPlot.getGraphWidget().setDomainValueFormat(new Format() {
+
+            // create a simple date format that dras on the year portion of our timestamp.
+            // see http://download.oracle.com/javase/1.4.2/docs/api/java/text/SimpleDateFormat.html
+            // for a full description of SimpleDateFormat.
+            private SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
+            @Override
+            public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+                // SimpleDateFormat expects milliseconds!
+                long timestamp = ((Number) obj).longValue();
+                Date date = new Date(timestamp);
+                return dateFormat.format(date, toAppendTo, pos);
+            }
+
+            @Override
+            public Object parseObject(String source, ParsePosition pos) {
+                return null;
+
+            }
+        });
+        
+        
         mySimpleXYPlot.getGraphWidget().setRangeLabelWidth(25);
         mySimpleXYPlot.setRangeLabel("");
         mySimpleXYPlot.setDomainLabel("");
@@ -236,7 +264,7 @@ public class DataPlot extends Activity implements OnTouchListener {
             case MotionEvent.ACTION_POINTER_DOWN: // second finger
                 distBetweenFingers = spacing(event);
                 // the distance check is done to avoid false alarms
-                if (distBetweenFingers > 5f) {
+                if (distBetweenFingers > 10f) {
                     mode = TWO_FINGERS_DRAG;
                 }
                 break;
@@ -296,6 +324,17 @@ public class DataPlot extends Activity implements OnTouchListener {
             maxXY.x = rightBoundary;
             minXY.x = rightBoundary - domainSpan;
         }
+        
+        // AVOIDING SCREEN TO DISAPPEAR!!
+        Log.d(TAG, "maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
+        Log.d(TAG, "domainSpan: "+ domainSpan);
+//        if(maxXY.x - minXY.x < domainSpan) {
+//            maxXY.x += 10000f;
+//        }
+//        if(maxXY.x - minXY.x < domainSpan) {
+//            maxXY.x += domainSpan;
+//            minXY.x += domainSpan;
+//        }
     }
 
     private float spacing(MotionEvent event) {

@@ -49,30 +49,6 @@ public class FileArrayAdapter extends ArrayAdapter<Option> {
             } else if (o.getData().equalsIgnoreCase("parent directory")) {
                 im.setImageResource(R.drawable.ic_f_back32);
             } else {
-//                String name = o.getName().toLowerCase();
-//                if (name.endsWith(".xls") ||  name.endsWith(".xlsx"))
-//                    im.setImageResource(R.drawable.xls);
-//                else if (name.endsWith(".doc") ||  name.endsWith(".docx"))
-//                    im.setImageResource(R.drawable.doc);
-//                else if (name.endsWith(".ppt") ||  o.getName().endsWith(".pptx"))
-//                    im.setImageResource(R.drawable.ppt);
-//                else if (name.endsWith(".pdf"))
-//                    im.setImageResource(R.drawable.pdf);
-//                else if (name.endsWith(".apk"))
-//                    im.setImageResource(R.drawable.android32);
-//                else if (name.endsWith(".txt"))
-//                    im.setImageResource(R.drawable.txt32);
-//                else if (name.endsWith(".jpg") || name.endsWith(".jpeg"))
-//                    im.setImageResource(R.drawable.jpg32);
-//                else if (name.endsWith(".png"))
-//                    im.setImageResource(R.drawable.png32);
-//                else if (name.endsWith(".zip"))
-//                    im.setImageResource(R.drawable.zip32);
-//                else if (name.endsWith(".rtf"))
-//                    im.setImageResource(R.drawable.rtf32);
-//                else if (name.endsWith(".gif"))
-//                    im.setImageResource(R.drawable.gif32);
-//                else
                     im.setImageResource(R.drawable.ic_f_whitepage32);                    
             }
 

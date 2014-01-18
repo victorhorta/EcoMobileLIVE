@@ -1,33 +1,29 @@
 package com.ecomaplive.ecomobilelive;
 
+import java.io.File;
 import java.util.ArrayList;
 
-import com.ecomaplive.ecomobilelive.collectdata.Explorer;
-import com.ecomaplive.ecomobilelive.fragments.MainFragments;
-
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.Window;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+
+import com.ecomaplive.ecomobilelive.filepicker.FileChooser;
+import com.ecomaplive.ecomobilelive.fragments.MainFragments;
 
 public class Main extends Activity implements OnClickListener {
     public final static String TAG = "Main";
@@ -123,8 +119,17 @@ public class Main extends Activity implements OnClickListener {
             Main.this.startActivity(i1);
         } else if (id == R.id.imageButton_up_right) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
-            Intent i2 = new Intent(Main.this, DataManager.class);
-            Main.this.startActivity(i2);
+//            Intent i2 = new Intent(Main.this, DataManager.class);
+//            Main.this.startActivity(i2);
+
+            Intent i2 = new Intent(this, FileChooser.class);
+            ArrayList<String> extensions = new ArrayList<String>();
+            extensions.add(".csv");
+            
+            i2.putStringArrayListExtra("filterFileExtension", extensions);
+            startActivityForResult(i2, 1);
+            
+            
         } else if (id == R.id.imageButton_down_left) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
             Intent i3 = new Intent(Main.this, DataManagerMain.class);
@@ -137,4 +142,43 @@ public class Main extends Activity implements OnClickListener {
             Log.d(TAG, "onClicked: unexpected!");
         }
     }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+           if(resultCode == RESULT_OK){      
+               final String fileSelected = data.getStringExtra("fileSelected");
+               
+               new AlertDialog.Builder(this)
+               .setTitle("File '" + fileSelected.substring(fileSelected.lastIndexOf(File.separator) + 1) + "' selected.")
+               .setMessage("What do you want to do?")
+               .setPositiveButton("Plot data", new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int which) { 
+                       Intent i = new Intent(getApplicationContext(), DataPlotSelect.class);
+                       i.putExtra("file_path",fileSelected);
+                       startActivity(i);
+                   }
+                })
+               .setNeutralButton("Map Data", new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int which) { 
+                       Intent i = new Intent(getApplicationContext(), DataMapSelect.class);
+                       i.putExtra("file_path",fileSelected);
+                       startActivity(i);
+                   }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialog, int which) { 
+                       // do nothing
+                   }
+                })
+                .setCancelable(true)
+                .show();
+               
+           }
+           
+           if (resultCode == RESULT_CANCELED) {    
+               //if there's no result
+           }
+        }
+      }
 }

@@ -41,7 +41,11 @@ public class EcoCSVObject  implements Serializable {
 
             // nextLine[] is an array of values from the line
             String[] nextLine;
-            nextLine = reader.readNext();
+            
+            // Ignoring comment lines
+            do {
+                nextLine = reader.readNext();
+            } while (nextLine != null && nextLine[0].charAt(0) == '#');
             
             // 1st Field: sensor
             fileConfig = ConfigSetup.getConfigFromId(Integer.parseInt(nextLine[0]));
@@ -102,6 +106,11 @@ public class EcoCSVObject  implements Serializable {
                 String headerLat = "Latitude";
                 String headerLon = "Longitude";
                 
+                // Ignoring comment lines
+                do {
+                    nextLine = reader.readNext();
+                } while (nextLine != null && nextLine[0].charAt(0) == '#');
+                
                 while ((nextLine = reader.readNext()) != null) {
                     if(onlyDataWithGPS) 
                         if(nextLine[fileConfig.getFieldIndex(headerLat)].equals(NO_GPS) || nextLine[fileConfig.getFieldIndex(headerLon)].equals(NO_GPS))
@@ -131,6 +140,61 @@ public class EcoCSVObject  implements Serializable {
         return dataRetrievedFromCSV;
     }
     
+    /**
+     * This method trims all starting '0's from the timestamp.
+     * 
+     * @param onlyDataWithGPS
+     *            boolean that indicates to retrieve only data containing valid
+     *            GPS information (those containing 'NO_GPS' are discarded).
+     * @return a list of Strings with the desired RAW data.
+     */
+    ArrayList<String> getTimeData(boolean onlyDataWithGPS) {
+        ArrayList<String> dataRetrievedFromCSV = new ArrayList<String>();
+        if (headerColumnLabels.contains("Time")) {
+            try {
+                CSVReader reader = new CSVReader(new FileReader(filePath));
+
+                // nextLine[] is an array of values from the line
+                String[] nextLine;
+                
+                String headerLat = "Latitude";
+                String headerLon = "Longitude";
+                
+                // Ignoring comment lines
+                do {
+                    nextLine = reader.readNext();
+                } while (nextLine != null && nextLine[0].charAt(0) == '#');
+                
+                while ((nextLine = reader.readNext()) != null) {
+                    if(onlyDataWithGPS) 
+                        if(nextLine[fileConfig.getFieldIndex(headerLat)].equals(NO_GPS) || nextLine[fileConfig.getFieldIndex(headerLon)].equals(NO_GPS))
+                            continue;
+                    
+                    //TODO: CALL HELPER METHODS HERE TO GET THE DATA ACCORDING TO THE CORRESPONDING FUNCTION!
+                    // if dataName equals "Gas1..." add ...
+                    // else if dataName equals "VOC..." add ...
+                    String timeInMillsLongString = nextLine[fileConfig.getFieldIndex("Time")];
+                    String timeInMillsShortString = timeInMillsLongString.substring(timeInMillsLongString.indexOf('0')); 
+                    dataRetrievedFromCSV.add(timeInMillsShortString);                        
+                }
+
+                // Closing the reader
+                reader.close();
+                
+            } catch (RuntimeException e) {
+                Log.d(TAG, "RuntimeException!");
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                Log.d(TAG, "FileNotFound!");
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                Log.d(TAG, "IOException!");
+            }
+        }
+        return dataRetrievedFromCSV;
+    }
     
     /**
      * @param dataNameOnPlotHeader
@@ -151,6 +215,11 @@ public class EcoCSVObject  implements Serializable {
                 
                 String headerLat = "Latitude";
                 String headerLon = "Longitude";
+                
+             // Ignoring comment lines
+                do {
+                    nextLine = reader.readNext();
+                } while (nextLine != null && nextLine[0].charAt(0) == '#');
                 
                 while ((nextLine = reader.readNext()) != null) {
                     if(onlyDataWithGPS) 
@@ -205,7 +274,8 @@ public class EcoCSVObject  implements Serializable {
         labels.add("Time");
 
         // Adding time values! they will be our x axis!
-        xValues = getRawData("Time", false);
+        //xValues = getRawData("Time", false);
+        xValues = getTimeData(false);
         
         yValues = getProcessedData(parameterWanted, false);
         labels.add(getUnitFromHeaderLabel(parameterWanted));
@@ -246,7 +316,8 @@ public class EcoCSVObject  implements Serializable {
         // Adding time values! they will be our x axis!
         latValues = getRawData("Latitude", true);
         lonValues = getRawData("Longitude", true);
-        timeValues = getRawData("Time", true);
+        //timeValues = getRawData("Time", true);
+        timeValues = getTimeData(false);
         dataValues = getProcessedData(parameterWanted, true);
         
         labels.add(getUnitFromHeaderLabel(parameterWanted));
