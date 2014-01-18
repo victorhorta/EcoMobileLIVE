@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/dialog_statfragment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <SeekBar
+            android:id="@+id/dialog_seekbar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </SeekBar>
+
+        <TextView
+            android:id="@+id/dialog_seekbar_label"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Select a value"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <RadioGroup
+            android:id="@+id/dialog_radiogroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/dialog_radiogroup_option1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Option 1" />
+
+            <RadioButton
+                android:id="@+id/dialog_radiogroup_option2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Option 2" />
+        </RadioGroup>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/dialog_decimal_hex_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Enter value:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/dialog_decimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="numberDecimal" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/dialog_hex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:digits="0123456789ABCDEF"
+                android:ems="10"
+                android:inputType="textCapCharacters" >
+            </EditText>
+        </LinearLayout>
+
+        <DatePicker
+            android:id="@+id/dialog_datepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:gravity="center" />
+
+        <TimePicker
+            android:id="@+id/dialog_timepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+    </LinearLayout>
+
+</ScrollView>

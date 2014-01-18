@@ -124,16 +124,13 @@ public class DataManager extends ListActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-        case R.id.menu_delete:
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_delete) {
             confirmDeleteItem(info.position);
-            break;
-        case R.id.menu_plot_data:
+        } else if (itemId == R.id.menu_plot_data) {
             preparePlotData(info.position);
-            break;
-        case R.id.menu_map_data:
+        } else if (itemId == R.id.menu_map_data) {
             prepareMapData(info.position);
-            break;
         }
         return super.onContextItemSelected(item);
     }

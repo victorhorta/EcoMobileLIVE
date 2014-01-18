@@ -306,18 +306,15 @@ public class ConnectFragment extends Fragment implements OnClickListener{
     @Override
     public void onClick(View v) {
         Intent serverIntent = null;
-        switch (v.getId()) {
-        case R.id.frag_connect_select:
+        int id = v.getId();
+        if (id == R.id.frag_connect_select) {
             serviceRef.testServiceMethod("ae");
-            break;
-        case R.id.frag_updatesession:
+        } else if (id == R.id.frag_updatesession) {
             serverIntent = new Intent(getActivity(), DeviceListActivity.class);
             startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
-            break;
-        case R.id.frag_open:
+        } else if (id == R.id.frag_open) {
             serverIntent = new Intent(getActivity(), DeviceListActivity.class);
             startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_INSECURE);
-            break;
         }
     }
 }

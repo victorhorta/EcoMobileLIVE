@@ -154,30 +154,24 @@ public class DataPlot extends Activity implements OnTouchListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-        case R.id.plot_menu_reset:
+        int itemId = item.getItemId();
+        if (itemId == R.id.plot_menu_reset) {
             minXY.x = series[0].getX(0).floatValue();
             maxXY.x = series[0].getX(series[0].size() - 1).floatValue();
             mySimpleXYPlot.setDomainBoundaries(minXY.x, maxXY.x, BoundaryMode.FIXED);
             mySimpleXYPlot.redraw();
             return true;
-
-        case R.id.plot_menu_screenshot:
+        } else if (itemId == R.id.plot_menu_screenshot) {
             //final StringBuilder imageFileName = new StringBuilder();
          // get prompts.xml view
             LayoutInflater li = LayoutInflater.from(this);
             View promptsView = li.inflate(R.layout.prompt_setimagename, null);
-
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                     this);
-
             // set prompts.xml to alertdialog builder
             alertDialogBuilder.setView(promptsView);
-
             final EditText userInput = (EditText) promptsView
                     .findViewById(R.id.userImageName);
-
             // set dialog message
             alertDialogBuilder
                 .setCancelable(false)
@@ -196,84 +190,12 @@ public class DataPlot extends Activity implements OnTouchListener {
                     dialog.cancel();
                     }
                   });
-
             // create alert dialog
             AlertDialog alertDialog = alertDialogBuilder.create();
-
             // show it
             alertDialog.show();
-            
-            /*
-            // TODO: Take screenshot and save it
-            mySimpleXYPlot.setDrawingCacheEnabled(true);
-            int width = mySimpleXYPlot.getWidth();
-            int height = mySimpleXYPlot.getHeight();
-            mySimpleXYPlot.measure(width, height);
-            Bitmap bmp = Bitmap.createBitmap(mySimpleXYPlot.getDrawingCache());
-            mySimpleXYPlot.setDrawingCacheEnabled(false);
-            
-//            String fileName = new SimpleDateFormat("yyyyMMddhhmm'.png'").format(new Date());
-            //String fileName = new Date().getTime() + ".txt";
-            
-//            FileOutputStream fos;
-//            try {
-//                fos = new FileOutputStream(fileName, true);
-//                bmp.compress(CompressFormat.PNG, 100, fos);
-//                
-//                Toast.makeText(getBaseContext(), "Image '" + fileName + "' saved.", Toast.LENGTH_SHORT).show(); 
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            }
-            
-            boolean mExternalStorageAvailable = false;
-            String state = Environment.getExternalStorageState();
-            if (Environment.MEDIA_MOUNTED.equals(state)) {
-                // We can read and write the media
-                mExternalStorageAvailable = true;
-            } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-                // We can only read the media
-                mExternalStorageAvailable = true;
-            } else {
-                // Something else is wrong. It may be one of many other states, but
-                // all we need
-                // to know is we can neither read nor write
-                mExternalStorageAvailable = false;
-            }
-            
-            if (mExternalStorageAvailable) {
-                File parentDirectory = new File(Environment.getExternalStorageDirectory(),
-                        DataExplorer.STORAGE_DIR);
-                if (parentDirectory.exists()) {
-                    String fileName = new SimpleDateFormat("yyyyMMddhhmmss'.png'").format(new Date());
-                    
-                    FileOutputStream fos;
-                    try {
-                        fos = new FileOutputStream(parentDirectory.getAbsolutePath() + File.separator + fileName, true);
-                        bmp.compress(CompressFormat.PNG, 100, fos);
-                        fos.flush();
-                        fos.close();
-                        
-                        Toast.makeText(getBaseContext(), "Image '" + fileName + "' saved.",
-                                Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Image created at: " + parentDirectory.getAbsolutePath() + File.separator + fileName);
-                    } catch (FileNotFoundException e) {
-                        Toast.makeText(getBaseContext(), "Error creating image.",
-                                Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    
-                }
-            }
-            
-
-            */
-            
-            
             return true;
-            
-        default:
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }

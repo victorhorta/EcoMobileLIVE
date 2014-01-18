@@ -210,16 +210,13 @@ public class MainFragments extends FragmentActivity implements ActionBar.TabList
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-      switch (item.getItemId()) {
-      case R.id.menu_frags_stat:
-    	  Intent commandRequestStat = new Intent(BTService.INTENT_COMMAND_REQUEST);
-    	  commandRequestStat.putExtra(BTService.EXTRA_COMMAND_REQUEST_COMMAND, "STAT");
-    	  LocalBroadcastManager.getInstance(this).sendBroadcast(commandRequestStat);
-    	  
-        break;
-      default:
-        break;
-      }
+      int itemId = item.getItemId();
+    if (itemId == R.id.menu_frags_stat) {
+        Intent commandRequestStat = new Intent(BTService.INTENT_COMMAND_REQUEST);
+        commandRequestStat.putExtra(BTService.EXTRA_COMMAND_REQUEST_COMMAND, "STAT");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(commandRequestStat);
+    } else {
+    }
 
       return true;
     } 

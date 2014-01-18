@@ -91,9 +91,8 @@ public class Main extends Activity implements OnClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-        case R.id.main_menu_settings:
+        int itemId = item.getItemId();
+        if (itemId == R.id.main_menu_settings) {
             if (item.isChecked()) {
                 item.setChecked(false);
             } else {
@@ -104,47 +103,38 @@ public class Main extends Activity implements OnClickListener {
             SharedPreferences.Editor editor = settings.edit();
             Log.d(TAG, "Changing checked option to: " + Boolean.toString(item.isChecked()));
             editor.putBoolean("rememberLastDevicesMode", item.isChecked());
-
             // Commit the edits!
             editor.commit();
             return true;
-
-        case R.id.main_menu_about:
+        } else if (itemId == R.id.main_menu_about) {
             // TODO: About screen
             return true;
-        default:
+        } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-        case R.id.imageButton_up_left:
+        int id = v.getId();
+        if (id == R.id.imageButton_up_left) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
             Intent i1 = new Intent(Main.this, MainFragments.class);
             Main.this.startActivity(i1);
-            break;
-        case R.id.imageButton_up_right:
+        } else if (id == R.id.imageButton_up_right) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
             Intent i2 = new Intent(Main.this, DataManager.class);
             Main.this.startActivity(i2);
-            break;
-        case R.id.imageButton_down_left:
+        } else if (id == R.id.imageButton_down_left) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
             Intent i3 = new Intent(Main.this, DataManagerMain.class);
             Main.this.startActivity(i3);
-            break;
-        case R.id.imageButton_down_right:
+        } else if (id == R.id.imageButton_down_right) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
-            
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ecomaplive.com"));
             startActivity(browserIntent);
-            
-            break;
-        default:
+        } else {
             Log.d(TAG, "onClicked: unexpected!");
-
         }
     }
 }
