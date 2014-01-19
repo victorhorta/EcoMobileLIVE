@@ -2,28 +2,23 @@ package com.ecomaplive.ecomobilelive.btmanager;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Bitmap.CompressFormat;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ecomaplive.ecomobilelive.DataExplorer;
 import com.ecomaplive.ecomobilelive.csvconfig.CSVConfig;
@@ -31,6 +26,14 @@ import com.ecomaplive.ecomobilelive.csvconfig.ConfigSetup;
 import com.ecomaplive.ecomobilelive.fragments.StatData;
 import com.ecomaplive.ecomobilelive.fragments.StatDataType;
 
+/**
+ * @author vhorta
+ *
+ */
+/**
+ * @author vhorta
+ *
+ */
 public class EcoMiniStreamHandler implements IDeviceStreamHandler{
     private final static String TAG = "EcoMiniStreamHandler";
     private final static int MAX_LINES_PER_CSV = 1000;
@@ -55,6 +58,40 @@ public class EcoMiniStreamHandler implements IDeviceStreamHandler{
     private String fileExtension = ".csv";
     		
     
+    // Dynamic monitor fields:
+    /*
+     * Monitor manager: stores all monitorable field names (to be used later on
+     * the Spinner...), and maps each field to its position on the
+     * historyManager.
+     */
+    private Map<String, Integer> monitorManager = new HashMap<String, Integer>();
+    {
+        monitorManager.put("1. Temperature", 8);
+        monitorManager.put("2. Humidity", 9);
+        monitorManager.put("3. Sound Level", 14);
+        monitorManager.put("4. Light IR Level", 10);
+        monitorManager.put("5. Red Level", 11);
+        monitorManager.put("6. Green Level", 12);
+        monitorManager.put("7. Blue Level", 13);
+        monitorManager.put("8. Gas #1 PPB Level", 17);
+        monitorManager.put("9. Gas #2 PPB Level", 20);
+    }
+    
+    /*
+     * History manager: stores all last dynamically monitorable fields.
+     */
+    Map<Integer, List<Float>> historyManager  = new HashMap<Integer, List<Float>>();
+    {
+        historyManager.put(8,  new ArrayList<Float>());
+        historyManager.put(9,  new ArrayList<Float>());
+        historyManager.put(14, new ArrayList<Float>());
+        historyManager.put(10, new ArrayList<Float>());
+        historyManager.put(11, new ArrayList<Float>());
+        historyManager.put(12, new ArrayList<Float>());
+        historyManager.put(13, new ArrayList<Float>());
+        historyManager.put(1,  new ArrayList<Float>());
+        historyManager.put(20, new ArrayList<Float>());
+    }
     
     
     // Used only to get the context and broadcast messages!
@@ -146,6 +183,16 @@ public class EcoMiniStreamHandler implements IDeviceStreamHandler{
             	
             } else if (text.split(",").length == EXPECTED_NUMBER_OF_CSV_FIELDS) {
                 Log.d(TAG, "Valid data has been captured!");
+                
+                // Updating Dynamically monitored fields history
+                String[] splittedText = text.split(",");
+                Iterator<Integer> historyIndexIt = historyManager.keySet().iterator();
+                
+                while(historyIndexIt.hasNext()) {
+                    int tempPosition = historyIndexIt.next(); 
+                    historyManager.get(tempPosition).add(Float.parseFloat(splittedText[tempPosition]));
+                }
+                
                 if (linesCounter == MAX_LINES_PER_CSV - 1) {
                     linesCounter = 0;
                     csvCounter++;
@@ -293,10 +340,6 @@ public class EcoMiniStreamHandler implements IDeviceStreamHandler{
 	    Log.d(TAG, "Line successfully written to the csv file.");
 	}
 
-	
-	 
-	
-	
 	@Override
 	public void setRecordingState(boolean state) {
 		RECORDING = state;
@@ -315,9 +358,15 @@ public class EcoMiniStreamHandler implements IDeviceStreamHandler{
 		}
 	}
 
-
 	@Override
 	public void setNextMarker() {
 		SETMARKER = true;
 	}
+
+	@Override
+    public String[] getMonitorableDataNames() {
+        String[] orderedMonitorNames = monitorManager.keySet().toArray(new String[monitorManager.size()]).clone();
+        Arrays.sort(orderedMonitorNames);
+        return orderedMonitorNames;
+    }
 }

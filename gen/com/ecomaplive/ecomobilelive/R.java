@@ -432,7 +432,7 @@ containing a value of this type.
         public static final int TextView02=0x7f060053;
         public static final int ToggleButton01=0x7f06001d;
         public static final int acceleration=0x7f06002a;
-        public static final int action_settings=0x7f06006c;
+        public static final int action_settings=0x7f06006f;
         public static final int actionbar_customtitle=0x7f060005;
         public static final int battery=0x7f060030;
         public static final int button_listdevices=0x7f06000b;
@@ -458,16 +458,19 @@ containing a value of this type.
         public static final int edaP=0x7f06002c;
         public static final int empty=0x7f060027;
         public static final int enablebluetooth=0x7f060020;
-        public static final int frag_button_cancel=0x7f060061;
+        public static final int frag_button_cancel=0x7f060064;
         public static final int frag_collect_add_marker=0x7f060057;
-        public static final int frag_connect_select=0x7f06005b;
-        public static final int frag_last_capture=0x7f060063;
-        public static final int frag_lastdatareceived=0x7f060059;
-        public static final int frag_open=0x7f060060;
+        public static final int frag_connect_select=0x7f06005e;
+        public static final int frag_dynamicmonitor=0x7f060059;
+        public static final int frag_last_capture=0x7f060066;
+        public static final int frag_lastdatareceived=0x7f06005c;
+        public static final int frag_monitor_spinner=0x7f06005a;
+        public static final int frag_monitor_start=0x7f06005b;
+        public static final int frag_open=0x7f060063;
         public static final int frag_radiogroup=0x7f060006;
         public static final int frag_sessioncontrol=0x7f060056;
-        public static final int frag_table_to_be_updated=0x7f06005a;
-        public static final int frag_updatesession=0x7f06005f;
+        public static final int frag_table_to_be_updated=0x7f06005d;
+        public static final int frag_updatesession=0x7f060062;
         public static final int graphview=0x7f06000f;
         public static final int heartRate=0x7f06002d;
         public static final int heartRateAverage=0x7f06002e;
@@ -479,12 +482,12 @@ containing a value of this type.
         public static final int imageButton_up_right=0x7f060013;
         public static final int img1=0x7f060052;
         public static final int input=0x7f060032;
-        public static final int layout_prompt_setimagename=0x7f060067;
+        public static final int layout_prompt_setimagename=0x7f06006a;
         public static final int layoutroot=0x7f060010;
         public static final int listView=0x7f06000e;
         public static final int lowbattery=0x7f060025;
-        public static final int main_menu_about=0x7f060071;
-        public static final int main_menu_settings=0x7f060070;
+        public static final int main_menu_about=0x7f060074;
+        public static final int main_menu_settings=0x7f060073;
         public static final int main_text_down_left=0x7f060016;
         public static final int main_text_down_right=0x7f060018;
         public static final int main_text_up_left=0x7f060012;
@@ -493,12 +496,12 @@ containing a value of this type.
         public static final int main_text_version_nr=0x7f06001a;
         public static final int map=0x7f06003f;
         public static final int mapoptions_list=0x7f06003e;
-        public static final int menu_delete=0x7f06006f;
-        public static final int menu_frags_stat=0x7f060072;
-        public static final int menu_map_data=0x7f06006e;
-        public static final int menu_plot_data=0x7f06006d;
-        public static final int mySimpleXYPlot=0x7f06006b;
-        public static final int name=0x7f060066;
+        public static final int menu_delete=0x7f060072;
+        public static final int menu_frags_stat=0x7f060075;
+        public static final int menu_map_data=0x7f060071;
+        public static final int menu_plot_data=0x7f060070;
+        public static final int mySimpleXYPlot=0x7f06006e;
+        public static final int name=0x7f060069;
         public static final int new_devices=0x7f060045;
         public static final int none=0x7f060000;
         public static final int normal=0x7f060001;
@@ -510,24 +513,24 @@ containing a value of this type.
         public static final int p_info_timestamp=0x7f06003d;
         public static final int pager=0x7f06000c;
         public static final int paired_devices=0x7f060043;
-        public static final int plot_menu_reset=0x7f060073;
-        public static final int plot_menu_screenshot=0x7f060074;
+        public static final int plot_menu_reset=0x7f060076;
+        public static final int plot_menu_screenshot=0x7f060077;
         public static final int plotoptions_list=0x7f060041;
-        public static final int radio0=0x7f06005c;
-        public static final int radio1=0x7f06005d;
-        public static final int radio2=0x7f06005e;
+        public static final int radio0=0x7f06005f;
+        public static final int radio1=0x7f060060;
+        public static final int radio2=0x7f060061;
         public static final int radio_aircasting=0x7f06000a;
         public static final int radio_ecomini=0x7f060008;
         public static final int radio_ecomonitor=0x7f060007;
         public static final int radio_econano=0x7f060009;
         public static final int satellite=0x7f060002;
         public static final int scroller=0x7f060021;
-        public static final int section_label=0x7f060064;
+        public static final int section_label=0x7f060067;
         public static final int selectdevice=0x7f06001f;
         public static final int selected=0x7f060026;
         public static final int selections=0x7f060023;
-        public static final int stat_details=0x7f06006a;
-        public static final int stat_header=0x7f060069;
+        public static final int stat_details=0x7f06006d;
+        public static final int stat_header=0x7f06006c;
         public static final int tableRow1=0x7f060034;
         public static final int tableRow2=0x7f060036;
         public static final int tableRow3=0x7f060038;
@@ -535,14 +538,14 @@ containing a value of this type.
         public static final int tableRow5=0x7f06003c;
         public static final int temp=0x7f060029;
         public static final int terrain=0x7f060003;
-        public static final int textView1=0x7f060065;
-        public static final int textView2=0x7f060062;
+        public static final int textView1=0x7f060068;
+        public static final int textView2=0x7f060065;
         public static final int time=0x7f060031;
         public static final int title_new_devices=0x7f060044;
         public static final int title_paired_devices=0x7f060042;
         public static final int toggle_button_record=0x7f060058;
         public static final int togglebutton=0x7f06001c;
-        public static final int userImageName=0x7f060068;
+        public static final int userImageName=0x7f06006b;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f080000;
@@ -577,7 +580,7 @@ containing a value of this type.
         public static final int listrow_group=0x7f03001a;
         public static final int prompt_setimagename=0x7f03001b;
         public static final int stat_row=0x7f03001c;
-        public static final int touch_zoom_example=0x7f03001d;
+        public static final int touch_zoom=0x7f03001d;
     }
     public static final class menu {
         public static final int device_area=0x7f0c0000;
@@ -615,6 +618,7 @@ containing a value of this type.
         public static final int auth_client_using_bad_version_title=0x7f070014;
         public static final int button_cancel=0x7f070027;
         public static final int button_delete=0x7f070026;
+        public static final int choose_a_sensor=0x7f07004b;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -724,35 +728,35 @@ containing a value of this type.
         public static final int plot_info_selectdata=0x7f07002f;
         public static final int plot_menu_reset=0x7f07002c;
         public static final int plot_menu_screenshot=0x7f07002d;
-        public static final int pref_default_display_name=0x7f070050;
-        public static final int pref_description_social_recommendations=0x7f07004e;
+        public static final int pref_default_display_name=0x7f070051;
+        public static final int pref_description_social_recommendations=0x7f07004f;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f070052;
+        public static final int pref_header_data_sync=0x7f070053;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f07004c;
+        public static final int pref_header_general=0x7f07004d;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f070055;
-        public static final int pref_ringtone_silent=0x7f070058;
+        public static final int pref_header_notifications=0x7f070056;
+        public static final int pref_ringtone_silent=0x7f070059;
         public static final int pref_savesensors=0x7f070023;
         /**  These are being used for 'collectdata' 
          */
         public static final int pref_sensors=0x7f070043;
-        public static final int pref_title_add_friends_to_messages=0x7f070051;
-        public static final int pref_title_display_name=0x7f07004f;
-        public static final int pref_title_new_message_notifications=0x7f070056;
-        public static final int pref_title_ringtone=0x7f070057;
-        public static final int pref_title_social_recommendations=0x7f07004d;
-        public static final int pref_title_sync_frequency=0x7f070053;
-        public static final int pref_title_system_sync_settings=0x7f070054;
-        public static final int pref_title_vibrate=0x7f070059;
-        public static final int spinner_prompt=0x7f07005a;
+        public static final int pref_title_add_friends_to_messages=0x7f070052;
+        public static final int pref_title_display_name=0x7f070050;
+        public static final int pref_title_new_message_notifications=0x7f070057;
+        public static final int pref_title_ringtone=0x7f070058;
+        public static final int pref_title_social_recommendations=0x7f07004e;
+        public static final int pref_title_sync_frequency=0x7f070054;
+        public static final int pref_title_system_sync_settings=0x7f070055;
+        public static final int pref_title_vibrate=0x7f07005a;
+        public static final int spinner_prompt=0x7f07005b;
         public static final int title_activity_device_area=0x7f070044;
         public static final int title_activity_device_select=0x7f070049;
-        public static final int title_activity_device_settings=0x7f07004b;
+        public static final int title_activity_device_settings=0x7f07004c;
         public static final int title_section1=0x7f070046;
         public static final int title_section2=0x7f070047;
         public static final int title_section3=0x7f070048;

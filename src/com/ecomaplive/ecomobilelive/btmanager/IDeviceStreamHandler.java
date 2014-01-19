@@ -81,4 +81,17 @@ public interface IDeviceStreamHandler {
      * @param name the desired project name.
      */
     public void setProjectName(String name);
+    
+    /**
+     * Returns the names of the monitorable data fields from this model. This
+     * method is intended to be used when filling the spinner from the Collect
+     * fragment.
+     * 
+     * @return an array containing all monitorable data names
+     */
+    public String[] getMonitorableDataNames();
+    
+    //public ??? getRecentHistory();
+    //public resetRecentHistory();     
+            
 }

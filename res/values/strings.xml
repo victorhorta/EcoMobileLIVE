@@ -52,5 +52,6 @@
     <string name="title_section3">Section 3</string>
     <string name="title_activity_device_select">Select your device</string>
     <string name="hello_world">Hello world!</string>
+    <string name="choose_a_sensor">Choose a sensor</string>
 
 </resources>

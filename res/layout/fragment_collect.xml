@@ -71,6 +71,33 @@
                 android:textOff="STOPPED"
                 android:textOn="RECORDING" />
         </LinearLayout>
+        
+        <TextView
+            android:id="@+id/frag_dynamicmonitor"
+            style="?android:attr/listSeparatorTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Dynamic monitoring" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Spinner
+                android:id="@+id/frag_monitor_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:prompt="@string/choose_a_sensor" />
+
+            <Button
+                android:id="@+id/frag_monitor_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/frag_lastdatareceived"

@@ -1,7 +1,9 @@
 package com.ecomaplive.ecomobilelive.fragments;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,9 +15,11 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableLayout.LayoutParams;
 import android.widget.TableRow;
@@ -41,11 +45,16 @@ public class CollectFragment extends Fragment {
     public static ArrayList<String> fieldLabels = new ArrayList<String>();
     public static ArrayList<String> fieldValues = new ArrayList<String>();
     
+    List<String> monitorableDataNames;
+    ArrayAdapter<String> monitorableAdapter;
+    
     private MainFragments mainFragmentsContext;
     
     Button addMarkerButton;
     ToggleButton recordToggleButton;
     TextView  sessionName;
+    Spinner dynamicMonitor;
+    Button monitorButton;
     
     //TextView amountTextView;
     TableLayout fieldsToBeUpdated;
@@ -64,6 +73,35 @@ public class CollectFragment extends Fragment {
         recordToggleButton.setChecked(isRecording);
         sessionName = (TextView) getActivity().findViewById(R.id.collect_session_name);
         sessionName.setText(sessionNameString);
+        dynamicMonitor = (Spinner) getActivity().findViewById(R.id.frag_monitor_spinner);
+        monitorButton = (Button) getActivity().findViewById(R.id.frag_monitor_start);
+        
+        
+        monitorableDataNames = new ArrayList<String>();
+        monitorableDataNames.add("Not connected");
+        
+        monitorableAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, monitorableDataNames);
+
+        monitorableAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        
+        updateDynamicMonitorSpinnerStatus();
+//        if (BTService.allDeviceStreamHandlers != null && BTService.allDeviceStreamHandlers.containsKey("EcoMini")) {
+//            monitorableDataNames = BTService.allDeviceStreamHandlers.get("EcoMini").getMonitorableDataNames();
+//            dynamicMonitor.setEnabled(true);
+//            monitorButton.setEnabled(true);
+//        } else {
+//            monitorableDataNames = new String[] { "Not Connected" };
+//            dynamicMonitor.setEnabled(false);
+//            monitorButton.setEnabled(false);
+//        }
+                
+               
+        
+
+        dynamicMonitor.setAdapter(monitorableAdapter);
+        
+        
 //        if(sessionName != null)
 //        	sessionName.setId(3001);
         
@@ -94,10 +132,13 @@ public class CollectFragment extends Fragment {
 
 			@Override
 			public void run() {
+			    updateDynamicMonitorSpinnerStatus();
+			    
 				try {
 					while (!isInterrupted()) {
 						Thread.sleep(1000);
 						updateLatestLabelsAndValues();
+						updateDynamicMonitorSpinnerStatus();
 					}
 				} catch (InterruptedException e) {
 				}
@@ -306,5 +347,36 @@ public class CollectFragment extends Fragment {
 			}
 		});
 	}
+	
+	
+    /**
+     * Enables / disables the spinner and the start button for the dynamic
+     * monitor session.
+     */
+    public void updateDynamicMonitorSpinnerStatus() {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (BTService.allDeviceStreamHandlers != null
+                        && BTService.allDeviceStreamHandlers
+                                .containsKey("EcoMini") && BTService.SERVICE_IS_RUNNING) {
+                    monitorableDataNames.clear();
+                    monitorableDataNames.addAll(new ArrayList<String>(Arrays.asList(BTService.allDeviceStreamHandlers
+                            .get("EcoMini").getMonitorableDataNames()))) ;
+
+                    dynamicMonitor.setEnabled(true);
+                    monitorButton.setEnabled(true);
+                    monitorableAdapter.notifyDataSetChanged();
+
+                } else {
+                    monitorableDataNames.clear();
+                    monitorableDataNames.add("Not Connected");
+                    dynamicMonitor.setEnabled(false);
+                    monitorButton.setEnabled(false);
+                    monitorableAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+    }
 }
 

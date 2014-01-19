@@ -52,6 +52,8 @@ public class DataPlot extends Activity implements OnTouchListener {
     private PointF minXY;
     private PointF maxXY;
     ArrayList<ArrayList<String>> overallList;
+    
+    private double REDUCING_TIME_FACTOR;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +72,7 @@ public class DataPlot extends Activity implements OnTouchListener {
             yVals.add(Double.parseDouble(overallList.get(1).get(pos)));
         }
         
-        setContentView(R.layout.touch_zoom_example);
+        setContentView(R.layout.touch_zoom);
 //        resetButton = (Button) findViewById(R.id.resetButton);
 //        // resetButton functionality
 //        resetButton.setOnClickListener(new View.OnClickListener() {
@@ -93,9 +95,9 @@ public class DataPlot extends Activity implements OnTouchListener {
         mySimpleXYPlot.setOnTouchListener(this);
         mySimpleXYPlot.getGraphWidget().setTicksPerRangeLabel(2);
         mySimpleXYPlot.getGraphWidget().setTicksPerDomainLabel(2);
-        mySimpleXYPlot.getGraphWidget().getBackgroundPaint().setColor(Color.TRANSPARENT);
+        mySimpleXYPlot.getGraphWidget().getBackgroundPaint().setColor(Color.BLACK);
         mySimpleXYPlot.getGraphWidget().setRangeValueFormat(
-                new DecimalFormat("#####"));
+                new DecimalFormat("#####.##"));
         
         // Changing timestamp domain value format
         //mySimpleXYPlot.getGraphWidget().setDomainValueFormat(
@@ -110,7 +112,9 @@ public class DataPlot extends Activity implements OnTouchListener {
             @Override
             public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
                 // SimpleDateFormat expects milliseconds!
-                long timestamp = ((Number) obj).longValue();
+                long timestamp = ((Number) obj).longValue()*1000 + (long)REDUCING_TIME_FACTOR;
+                Log.d("REDUCING_TIME", "REDUCING_TIME:" + (long)REDUCING_TIME_FACTOR);
+                Log.d("REDUCING_TIME", "timestamp:" + timestamp);
                 Date date = new Date(timestamp);
                 return dateFormat.format(date, toAppendTo, pos);
             }
@@ -165,10 +169,14 @@ public class DataPlot extends Activity implements OnTouchListener {
         
         mySimpleXYPlot.redraw();
         mySimpleXYPlot.calculateMinMaxVals();
+
         minXY = new PointF(mySimpleXYPlot.getCalculatedMinX().floatValue(),
                 mySimpleXYPlot.getCalculatedMinY().floatValue());
         maxXY = new PointF(mySimpleXYPlot.getCalculatedMaxX().floatValue(),
                 mySimpleXYPlot.getCalculatedMaxY().floatValue());
+        Log.d(TAG, "primeiroX: "+ series[0].getX(0));
+        Log.d(TAG, "ultimoX: "+ series[0].getX(series[0].size() - 1));
+        Log.d(TAG, "START AFTER maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
     }
 
     
@@ -234,8 +242,23 @@ public class DataPlot extends Activity implements OnTouchListener {
         Iterator<Double> xIterator = xVals.iterator();
         Iterator<Double> yIterator = yVals.iterator();
         
+        //Defining the REDUCING_TIME_FACTOR to allow using large numbers
+        double firstX = xIterator.next();
+        REDUCING_TIME_FACTOR = firstX - (firstX % (Math.pow(10, 10)));
+        
+        
+        
+        double nextX = (xIterator.next() - REDUCING_TIME_FACTOR)/1000;
+        Log.d(TAG, "     firstX: "+ firstX);
+        Log.d(TAG, "reducingtime: "+ REDUCING_TIME_FACTOR);
+        Log.d(TAG, "reducingtimelong: "+ (long)REDUCING_TIME_FACTOR);
+        Log.d(TAG, "     nextX: "+ nextX);
+        
+        series.addLast(nextX, yIterator.next());
+        
         while(xIterator.hasNext() && yIterator.hasNext()) {
-            series.addLast(xIterator.next(), yIterator.next());
+            nextX = (xIterator.next() - REDUCING_TIME_FACTOR)/1000;    
+            series.addLast(nextX, yIterator.next());
         }
     }
 
@@ -298,15 +321,18 @@ public class DataPlot extends Activity implements OnTouchListener {
         minXY.x = domainMidPoint - offset;
         maxXY.x = domainMidPoint + offset;
 
-        minXY.x = Math.min(minXY.x, series[0].getX(series[0].size() - 3)
+        minXY.x = Math.min(minXY.x, series[0].getX(series[0].size() - 2)
                 .floatValue());
-        maxXY.x = Math.max(maxXY.x, series[0].getX(1).floatValue());
+        maxXY.x = Math.max(maxXY.x, series[0].getX(2).floatValue());
         clampToDomainBounds(domainSpan);
     }
 
     private void scroll(float pan) {
+        Log.d(TAG, "BEF SCROLL maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
+        
         float domainSpan = maxXY.x - minXY.x;
-        float step = domainSpan / mySimpleXYPlot.getWidth();
+        Log.d(TAG, "BEF SCROLL domainSpan: "+ domainSpan);
+        float step = domainSpan / (float)mySimpleXYPlot.getWidth();
         float offset = pan * step;
         minXY.x = minXY.x + offset;
         maxXY.x = maxXY.x + offset;

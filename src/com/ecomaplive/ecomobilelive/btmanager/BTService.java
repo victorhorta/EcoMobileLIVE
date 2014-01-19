@@ -80,8 +80,8 @@ public class BTService extends Service {
     
     String deviceAddressSelected;
     String deviceTypeSelected;
-    IDeviceStreamHandler mActiveDeviceStreamHandler;
-    static Map <String, IDeviceStreamHandler> allDeviceStreamHandlers; 
+    public IDeviceStreamHandler mActiveDeviceStreamHandler;
+    public static Map <String, IDeviceStreamHandler> allDeviceStreamHandlers; 
     
     static StringBuffer history;
 
