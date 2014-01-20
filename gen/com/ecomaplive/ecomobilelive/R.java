@@ -432,8 +432,9 @@ containing a value of this type.
         public static final int TextView02=0x7f060053;
         public static final int ToggleButton01=0x7f06001d;
         public static final int acceleration=0x7f06002a;
-        public static final int action_settings=0x7f06006f;
+        public static final int action_settings=0x7f060070;
         public static final int actionbar_customtitle=0x7f060005;
+        public static final int aprHistoryPlot=0x7f06006a;
         public static final int battery=0x7f060030;
         public static final int button_listdevices=0x7f06000b;
         public static final int button_scan=0x7f060046;
@@ -482,12 +483,12 @@ containing a value of this type.
         public static final int imageButton_up_right=0x7f060013;
         public static final int img1=0x7f060052;
         public static final int input=0x7f060032;
-        public static final int layout_prompt_setimagename=0x7f06006a;
+        public static final int layout_prompt_setimagename=0x7f06006b;
         public static final int layoutroot=0x7f060010;
         public static final int listView=0x7f06000e;
         public static final int lowbattery=0x7f060025;
-        public static final int main_menu_about=0x7f060074;
-        public static final int main_menu_settings=0x7f060073;
+        public static final int main_menu_about=0x7f060075;
+        public static final int main_menu_settings=0x7f060074;
         public static final int main_text_down_left=0x7f060016;
         public static final int main_text_down_right=0x7f060018;
         public static final int main_text_up_left=0x7f060012;
@@ -496,11 +497,11 @@ containing a value of this type.
         public static final int main_text_version_nr=0x7f06001a;
         public static final int map=0x7f06003f;
         public static final int mapoptions_list=0x7f06003e;
-        public static final int menu_delete=0x7f060072;
-        public static final int menu_frags_stat=0x7f060075;
-        public static final int menu_map_data=0x7f060071;
-        public static final int menu_plot_data=0x7f060070;
-        public static final int mySimpleXYPlot=0x7f06006e;
+        public static final int menu_delete=0x7f060073;
+        public static final int menu_frags_stat=0x7f060076;
+        public static final int menu_map_data=0x7f060072;
+        public static final int menu_plot_data=0x7f060071;
+        public static final int mySimpleXYPlot=0x7f06006f;
         public static final int name=0x7f060069;
         public static final int new_devices=0x7f060045;
         public static final int none=0x7f060000;
@@ -513,8 +514,8 @@ containing a value of this type.
         public static final int p_info_timestamp=0x7f06003d;
         public static final int pager=0x7f06000c;
         public static final int paired_devices=0x7f060043;
-        public static final int plot_menu_reset=0x7f060076;
-        public static final int plot_menu_screenshot=0x7f060077;
+        public static final int plot_menu_reset=0x7f060077;
+        public static final int plot_menu_screenshot=0x7f060078;
         public static final int plotoptions_list=0x7f060041;
         public static final int radio0=0x7f06005f;
         public static final int radio1=0x7f060060;
@@ -529,8 +530,8 @@ containing a value of this type.
         public static final int selectdevice=0x7f06001f;
         public static final int selected=0x7f060026;
         public static final int selections=0x7f060023;
-        public static final int stat_details=0x7f06006d;
-        public static final int stat_header=0x7f06006c;
+        public static final int stat_details=0x7f06006e;
+        public static final int stat_header=0x7f06006d;
         public static final int tableRow1=0x7f060034;
         public static final int tableRow2=0x7f060036;
         public static final int tableRow3=0x7f060038;
@@ -545,7 +546,7 @@ containing a value of this type.
         public static final int title_paired_devices=0x7f060042;
         public static final int toggle_button_record=0x7f060058;
         public static final int togglebutton=0x7f06001c;
-        public static final int userImageName=0x7f06006b;
+        public static final int userImageName=0x7f06006c;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f080000;
@@ -578,9 +579,10 @@ containing a value of this type.
         public static final int listrow_devicerow=0x7f030018;
         public static final int listrow_deviceselector=0x7f030019;
         public static final int listrow_group=0x7f03001a;
-        public static final int prompt_setimagename=0x7f03001b;
-        public static final int stat_row=0x7f03001c;
-        public static final int touch_zoom=0x7f03001d;
+        public static final int orientation_sensor_example=0x7f03001b;
+        public static final int prompt_setimagename=0x7f03001c;
+        public static final int stat_row=0x7f03001d;
+        public static final int touch_zoom=0x7f03001e;
     }
     public static final class menu {
         public static final int device_area=0x7f0c0000;

@@ -91,6 +91,20 @@ public interface IDeviceStreamHandler {
      */
     public String[] getMonitorableDataNames();
     
+    /**
+     * Returns the index of the monitorable data index (to be used on the csv
+     * text line). Queries the map to do this.
+     * 
+     * @param name
+     *            name of the field (from the spinner)
+     * @return csv index of the monitorable data, or '0' if the name is not
+     *         found
+     */
+    public int getMonitorableDataIndex(String name);
+    
+    public float getMonitorPlotBoundaryYMin(String name);
+    public float getMonitorPlotBoundaryYMax(String name);
+    
     //public ??? getRecentHistory();
     //public resetRecentHistory();     
             

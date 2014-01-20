@@ -22,6 +22,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.ecomaplive.ecomobilelive.dynamicplot.OrientationSensorExampleActivity;
 import com.ecomaplive.ecomobilelive.filepicker.FileChooser;
 import com.ecomaplive.ecomobilelive.fragments.MainFragments;
 
@@ -132,7 +133,8 @@ public class Main extends Activity implements OnClickListener {
             
         } else if (id == R.id.imageButton_down_left) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
-            Intent i3 = new Intent(Main.this, DataManagerMain.class);
+            //Intent i3 = new Intent(Main.this, DataManagerMain.class);
+            Intent i3 = new Intent(Main.this, OrientationSensorExampleActivity.class);
             Main.this.startActivity(i3);
         } else if (id == R.id.imageButton_down_right) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());

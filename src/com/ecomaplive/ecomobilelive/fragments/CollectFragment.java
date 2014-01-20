@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +30,12 @@ import android.widget.ToggleButton;
 
 import com.ecomaplive.ecomobilelive.R;
 import com.ecomaplive.ecomobilelive.btmanager.BTService;
+import com.ecomaplive.ecomobilelive.dynamicplot.OrientationSensorExampleActivity;
+
 
 public class CollectFragment extends Fragment {
+    public static final String TAG = "CollectFragment";
+    
     public static final String REQUEST_FILEPATH = "request_filepath";
     
     
@@ -47,6 +52,7 @@ public class CollectFragment extends Fragment {
     
     List<String> monitorableDataNames;
     ArrayAdapter<String> monitorableAdapter;
+    Thread fieldLabelsUpdater;
     
     private MainFragments mainFragmentsContext;
     
@@ -63,6 +69,13 @@ public class CollectFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_collect, container, false);
     }
+    
+    @Override
+    public void onPause() {
+        super.onPause();
+        fieldLabelsUpdater.interrupt();
+    }
+    
     
     @Override
     public void onStart() {
@@ -128,24 +141,24 @@ public class CollectFragment extends Fragment {
 		///////////////////////////////////////////
         
         
-		Thread fieldLabelsUpdater = new Thread() {
-
-			@Override
-			public void run() {
-			    updateDynamicMonitorSpinnerStatus();
-			    
-				try {
-					while (!isInterrupted()) {
-						Thread.sleep(1000);
-						updateLatestLabelsAndValues();
-						updateDynamicMonitorSpinnerStatus();
-					}
-				} catch (InterruptedException e) {
-				}
-			}
-		};
-
-		fieldLabelsUpdater.start();
+//		fieldLabelsUpdater = new Thread() {
+//
+//			@Override
+//			public void run() {
+//			    updateDynamicMonitorSpinnerStatus();
+//			    
+//				try {
+//					while (!isInterrupted()) {
+//						Thread.sleep(1000);
+//						updateLatestLabelsAndValues();
+//						updateDynamicMonitorSpinnerStatus();
+//					}
+//				} catch (InterruptedException e) {
+//				}
+//			}
+//		};
+//
+//		fieldLabelsUpdater.start();
         
         
         
@@ -230,7 +243,7 @@ public class CollectFragment extends Fragment {
             }
         });
         
-     // addMarker button
+     // recordToggle button
         recordToggleButton.setOnClickListener(new View.OnClickListener() {
             
             public void onClick(View v) {
@@ -256,20 +269,57 @@ public class CollectFragment extends Fragment {
             }
         });
         
+        // Monitor button
+        monitorButton.setOnClickListener(new View.OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Starting new monitor intent");
+                
+                String selectedMonitorField = dynamicMonitor.getItemAtPosition(dynamicMonitor.getSelectedItemPosition()).toString();
+                
+                int selectedMonitorFieldIndex = BTService.allDeviceStreamHandlers
+                        .get("EcoMini").getMonitorableDataIndex(selectedMonitorField);
+                
+                float plotYMin = BTService.allDeviceStreamHandlers
+                        .get("EcoMini").getMonitorPlotBoundaryYMin(selectedMonitorField);
+                
+                float plotYMax = BTService.allDeviceStreamHandlers
+                        .get("EcoMini").getMonitorPlotBoundaryYMax(selectedMonitorField);   
+                
+                Intent dynamicMonitorIntent = new Intent(getActivity(), OrientationSensorExampleActivity.class);
+                dynamicMonitorIntent.putExtra(OrientationSensorExampleActivity.ACTIVATED_DYNAMIC_MONITOR, selectedMonitorFieldIndex);
+                dynamicMonitorIntent.putExtra(OrientationSensorExampleActivity.ACTIVATED_DYNAMIC_YMIN, plotYMin);
+                dynamicMonitorIntent.putExtra(OrientationSensorExampleActivity.ACTIVATED_DYNAMIC_YMAX, plotYMax);
+                startActivity(dynamicMonitorIntent);
+            }
+        });
         
     }
     
     public void onResume() {
     	super.onResume();
+    	fieldLabelsUpdater = new Thread() {
+
+            @Override
+            public void run() {
+                updateDynamicMonitorSpinnerStatus();
+                
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        updateLatestLabelsAndValues();
+                        updateDynamicMonitorSpinnerStatus();
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        fieldLabelsUpdater.start();
     	updateLatestLabelsAndValues();
     }
     
-//    public void updateAmountAndTimestamp(String amount, String timestamp) {
-//        lastTextString = timestamp;
-//        amountTextString = amount;
-//        lastTextView.setText(lastTextString);
-//        amountTextView.setText(amountTextString);
-//    }
     
 	public void updateLatestLabelsAndValues() {
 		mainFragmentsContext = (MainFragments) getActivity();
@@ -286,20 +336,6 @@ public class CollectFragment extends Fragment {
 				// Removing previously inserted views (old rows...)
 				fieldsToBeUpdated.removeAllViews();
 				
-/*
-				/////////////////////////////////////////////
-				RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams(
-						LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-				// relativeParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-				relativeParams.addRule(RelativeLayout.BELOW,
-						R.id.frag_text_filename);
-
-				// fieldsToBeUpdated.setLayoutParams(new
-				// RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-				// RelativeLayout.LayoutParams.WRAP_CONTENT));
-				fieldsToBeUpdated.setLayoutParams(relativeParams);
-				///////////////////////////////////////////
-				*/
 
 				Iterator<String> fieldLabelsIterator = fieldLabels.iterator();
 				Iterator<String> fieldValuesIterator = fieldValues.iterator();
@@ -342,8 +378,6 @@ public class CollectFragment extends Fragment {
 							TableLayout.LayoutParams.MATCH_PARENT,
 							TableLayout.LayoutParams.WRAP_CONTENT));
 				}
-				// addView(fieldsToBeUpdated);
-
 			}
 		});
 	}

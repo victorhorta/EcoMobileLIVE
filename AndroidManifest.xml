@@ -113,6 +113,12 @@
         </activity>
         
         
+        <!-- Dynamic plotting related -->
+        <activity
+            android:name="com.ecomaplive.ecomobilelive.dynamicplot.OrientationSensorExampleActivity"
+            android:label="Dynamic monitoring"
+            android:screenOrientation="landscape">
+        </activity>
         
         <!-- BTService related -->
         <service

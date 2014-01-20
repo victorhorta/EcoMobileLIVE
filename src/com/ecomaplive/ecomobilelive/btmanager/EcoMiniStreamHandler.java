@@ -23,13 +23,10 @@ import android.util.Log;
 import com.ecomaplive.ecomobilelive.DataExplorer;
 import com.ecomaplive.ecomobilelive.csvconfig.CSVConfig;
 import com.ecomaplive.ecomobilelive.csvconfig.ConfigSetup;
+import com.ecomaplive.ecomobilelive.dynamicplot.OrientationSensorExampleActivity;
 import com.ecomaplive.ecomobilelive.fragments.StatData;
 import com.ecomaplive.ecomobilelive.fragments.StatDataType;
 
-/**
- * @author vhorta
- *
- */
 /**
  * @author vhorta
  *
@@ -75,6 +72,35 @@ public class EcoMiniStreamHandler implements IDeviceStreamHandler{
         monitorManager.put("7. Blue Level", 13);
         monitorManager.put("8. Gas #1 PPB Level", 17);
         monitorManager.put("9. Gas #2 PPB Level", 20);
+    }
+    
+    /*
+     * Boundaries used at the dynamic plotting
+     */
+    private Map<String, Float> boundaryYMin = new HashMap<String, Float>();
+    {
+        boundaryYMin.put("1. Temperature", -40.0f);
+        boundaryYMin.put("2. Humidity", 0.0f);
+        boundaryYMin.put("3. Sound Level", 0.0f);
+        boundaryYMin.put("4. Light IR Level", 0.0f);
+        boundaryYMin.put("5. Red Level", 0.0f);
+        boundaryYMin.put("6. Green Level", 0.0f);
+        boundaryYMin.put("7. Blue Level", 0.0f);
+        boundaryYMin.put("8. Gas #1 PPB Level", 0.0f);
+        boundaryYMin.put("9. Gas #2 PPB Level", 0.0f);
+    }
+    
+    private Map<String, Float> boundaryYMax = new HashMap<String, Float>();
+    {
+        boundaryYMax.put("1. Temperature", +50.0f);
+        boundaryYMax.put("2. Humidity", 100.0f);
+        boundaryYMax.put("3. Sound Level", 6000.0f);
+        boundaryYMax.put("4. Light IR Level", 100.0f);
+        boundaryYMax.put("5. Red Level", 100.0f);
+        boundaryYMax.put("6. Green Level", 100.0f);
+        boundaryYMax.put("7. Blue Level", 100.0f);
+        boundaryYMax.put("8. Gas #1 PPB Level", 1000.0f);
+        boundaryYMax.put("9. Gas #2 PPB Level", 1000.0f);
     }
     
     /*
@@ -218,6 +244,8 @@ public class EcoMiniStreamHandler implements IDeviceStreamHandler{
                 // Sending the broadcast to be captured by the Collect Activity
                 // (just to update screen values...)
                 Intent intentReply = new Intent(BTService.INTENT_DATA_ARRIVED_FROM_SENSOR);
+                // Extra to be captured by the DynamicMonitor Activity...
+                intentReply.putExtra(OrientationSensorExampleActivity.EXTRA_DYNAMIC_UPDATE, text);
                 intentReply.putExtra(BTService.EXTRA_DATA_ARRIVED_LABELS, csvConfig.getHeaderColumnsLabels());
                 intentReply.putExtra(BTService.EXTRA_DATA_ARRIVED_VALUES, new ArrayList<String>(Arrays.asList(text.split(","))));
                 LocalBroadcastManager.getInstance(btService.getApplicationContext()).sendBroadcast(intentReply);
@@ -368,5 +396,23 @@ public class EcoMiniStreamHandler implements IDeviceStreamHandler{
         String[] orderedMonitorNames = monitorManager.keySet().toArray(new String[monitorManager.size()]).clone();
         Arrays.sort(orderedMonitorNames);
         return orderedMonitorNames;
+    }
+
+    @Override
+    public int getMonitorableDataIndex(String name) {
+        Integer nameIndex = monitorManager.get(name); 
+        return (nameIndex != null)?  nameIndex.intValue() : 0;
+    }
+
+    @Override
+    public float getMonitorPlotBoundaryYMin(String name) {
+        Float minVal = boundaryYMin.get(name); 
+        return (minVal != null)?  minVal.floatValue() : 0;
+    }
+
+    @Override
+    public float getMonitorPlotBoundaryYMax(String name) {
+        Float maxVal = boundaryYMax.get(name); 
+        return (maxVal != null)?  maxVal.floatValue() : 0;
     }
 }
