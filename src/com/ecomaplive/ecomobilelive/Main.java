@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ecomaplive.ecomobilelive.dynamicplot.OrientationSensorExampleActivity;
 import com.ecomaplive.ecomobilelive.filepicker.FileChooser;
@@ -73,15 +74,15 @@ public class Main extends Activity implements OnClickListener {
         getMenuInflater().inflate(R.menu.main, menu);
 
         // Restore preferences
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        boolean rememberLastDevices = settings.getBoolean("rememberLastDevicesMode", false);
-        Log.d(TAG, "Loading checked option as: " + Boolean.toString(rememberLastDevices));
-        try {
-            menu.findItem(R.id.main_menu_settings).setChecked(rememberLastDevices);
-            Log.d(TAG, "Setting checked option as: " + Boolean.toString(rememberLastDevices));
-        } catch (Exception e) {
-
-        }
+//        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+//        boolean rememberLastDevices = settings.getBoolean("rememberLastDevicesMode", false);
+//        Log.d(TAG, "Loading checked option as: " + Boolean.toString(rememberLastDevices));
+//        try {
+//            menu.findItem(R.id.main_menu_settings).setChecked(rememberLastDevices);
+//            Log.d(TAG, "Setting checked option as: " + Boolean.toString(rememberLastDevices));
+//        } catch (Exception e) {
+//
+//        }
 
         return true;
     }
@@ -89,22 +90,34 @@ public class Main extends Activity implements OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.main_menu_settings) {
-            if (item.isChecked()) {
-                item.setChecked(false);
-            } else {
-                item.setChecked(true);
-            }
-            // We need an Editor object to make preference changes.
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-            SharedPreferences.Editor editor = settings.edit();
-            Log.d(TAG, "Changing checked option to: " + Boolean.toString(item.isChecked()));
-            editor.putBoolean("rememberLastDevicesMode", item.isChecked());
-            // Commit the edits!
-            editor.commit();
-            return true;
-        } else if (itemId == R.id.main_menu_about) {
-            // TODO: About screen
+//        if (itemId == R.id.main_menu_settings) {
+//            if (item.isChecked()) {
+//                item.setChecked(false);
+//            } else {
+//                item.setChecked(true);
+//            }
+//            // We need an Editor object to make preference changes.
+//            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+//            SharedPreferences.Editor editor = settings.edit();
+//            Log.d(TAG, "Changing checked option to: " + Boolean.toString(item.isChecked()));
+//            editor.putBoolean("rememberLastDevicesMode", item.isChecked());
+//            // Commit the edits!
+//            editor.commit();
+//            return true;
+//        } else
+            if (itemId == R.id.main_menu_about) {
+            // About screen
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle("EcoMobile LIVE");
+                String aboutMessage = "\n\nMobile Environmental Monitoring project. \n\n\n\n";
+                
+                alertDialog.setMessage(aboutMessage);
+                alertDialog.setCancelable(true);
+                alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
+                alertDialog.show();
+                
+                TextView textView = (TextView) alertDialog.findViewById(android.R.id.message);
+                textView.setTextSize(12.0f);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -133,9 +146,9 @@ public class Main extends Activity implements OnClickListener {
             
         } else if (id == R.id.imageButton_down_left) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
-            //Intent i3 = new Intent(Main.this, DataManagerMain.class);
-            Intent i3 = new Intent(Main.this, OrientationSensorExampleActivity.class);
-            Main.this.startActivity(i3);
+            // Intent i3 = new Intent(Main.this, DataManagerMain.class);
+            // Main.this.startActivity(i3);
+            Toast.makeText(this, "To be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.imageButton_down_right) {
             Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ecomaplive.com"));

@@ -56,6 +56,9 @@ public class DeviceFragment extends Fragment {
         radioGroup = (RadioGroup) getActivity().findViewById(R.id.frag_radiogroup);
         
         updateDeviceLabel();
+        
+        // TODO: enable it when working on new device versions
+//        radioGroup.setEnabled(false);
 
         // Open Button
         openButton.setOnClickListener(new View.OnClickListener() {

@@ -35,7 +35,8 @@
                 android:id="@+id/radio0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EcoMonitor" />
+                android:text="EcoMonitor"
+                android:enabled="false" />
 
             <RadioButton
                 android:id="@+id/radio1"
@@ -48,7 +49,8 @@
                 android:id="@+id/radio2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EcoNano" />
+                android:text="EcoNano"
+                android:enabled="false" />
         </RadioGroup>
 
         <TextView

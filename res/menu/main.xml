@@ -1,13 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+     <item
 
-    <item
-        android:id="@+id/main_menu_settings"
-        android:title="@string/main_menu_settings"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:checkable="true"/>
-    <item
         android:id="@+id/main_menu_about"
-        android:title="@string/main_menu_about"
-        android:icon="@android:drawable/ic_menu_info_details"/>
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/main_menu_about">
 
+    </item>
 </menu>

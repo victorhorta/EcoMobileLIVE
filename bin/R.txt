@@ -314,8 +314,7 @@ int id layout_prompt_setimagename 0x7f06006b
 int id layoutroot 0x7f060010
 int id listView 0x7f06000e
 int id lowbattery 0x7f060025
-int id main_menu_about 0x7f060075
-int id main_menu_settings 0x7f060074
+int id main_menu_about 0x7f060074
 int id main_text_down_left 0x7f060016
 int id main_text_down_right 0x7f060018
 int id main_text_up_left 0x7f060012
@@ -325,7 +324,7 @@ int id main_text_version_nr 0x7f06001a
 int id map 0x7f06003f
 int id mapoptions_list 0x7f06003e
 int id menu_delete 0x7f060073
-int id menu_frags_stat 0x7f060076
+int id menu_frags_stat 0x7f060075
 int id menu_map_data 0x7f060072
 int id menu_plot_data 0x7f060071
 int id mySimpleXYPlot 0x7f06006f
@@ -341,8 +340,8 @@ int id p_info_sensortype 0x7f06003b
 int id p_info_timestamp 0x7f06003d
 int id pager 0x7f06000c
 int id paired_devices 0x7f060043
-int id plot_menu_reset 0x7f060077
-int id plot_menu_screenshot 0x7f060078
+int id plot_menu_reset 0x7f060076
+int id plot_menu_screenshot 0x7f060077
 int id plotoptions_list 0x7f060041
 int id radio0 0x7f06005f
 int id radio1 0x7f060060

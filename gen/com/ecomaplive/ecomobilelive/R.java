@@ -487,8 +487,7 @@ containing a value of this type.
         public static final int layoutroot=0x7f060010;
         public static final int listView=0x7f06000e;
         public static final int lowbattery=0x7f060025;
-        public static final int main_menu_about=0x7f060075;
-        public static final int main_menu_settings=0x7f060074;
+        public static final int main_menu_about=0x7f060074;
         public static final int main_text_down_left=0x7f060016;
         public static final int main_text_down_right=0x7f060018;
         public static final int main_text_up_left=0x7f060012;
@@ -498,7 +497,7 @@ containing a value of this type.
         public static final int map=0x7f06003f;
         public static final int mapoptions_list=0x7f06003e;
         public static final int menu_delete=0x7f060073;
-        public static final int menu_frags_stat=0x7f060076;
+        public static final int menu_frags_stat=0x7f060075;
         public static final int menu_map_data=0x7f060072;
         public static final int menu_plot_data=0x7f060071;
         public static final int mySimpleXYPlot=0x7f06006f;
@@ -514,8 +513,8 @@ containing a value of this type.
         public static final int p_info_timestamp=0x7f06003d;
         public static final int pager=0x7f06000c;
         public static final int paired_devices=0x7f060043;
-        public static final int plot_menu_reset=0x7f060077;
-        public static final int plot_menu_screenshot=0x7f060078;
+        public static final int plot_menu_reset=0x7f060076;
+        public static final int plot_menu_screenshot=0x7f060077;
         public static final int plotoptions_list=0x7f060041;
         public static final int radio0=0x7f06005f;
         public static final int radio1=0x7f060060;
