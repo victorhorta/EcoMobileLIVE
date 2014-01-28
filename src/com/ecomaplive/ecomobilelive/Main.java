@@ -2,17 +2,19 @@ package com.ecomaplive.ecomobilelive;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +25,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ecomaplive.ecomobilelive.dynamicplot.OrientationSensorExampleActivity;
 import com.ecomaplive.ecomobilelive.filepicker.FileChooser;
 import com.ecomaplive.ecomobilelive.fragments.MainFragments;
 
@@ -34,6 +35,8 @@ public class Main extends Activity implements OnClickListener {
 
     ArrayList<ImageButton> buttons = new ArrayList<ImageButton>();
     private CheckBox checkbox;
+    
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,17 +110,25 @@ public class Main extends Activity implements OnClickListener {
 //        } else
             if (itemId == R.id.main_menu_about) {
             // About screen
-                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-                alertDialog.setTitle("EcoMobile LIVE");
-                String aboutMessage = "\n\nMobile Environmental Monitoring project. \n\n\n\n";
+                alertDialog = new AlertDialog.Builder(Main.this).create();
+                alertDialog.setTitle("About");
                 
-                alertDialog.setMessage(aboutMessage);
+                alertDialog.setMessage("About");
                 alertDialog.setCancelable(true);
                 alertDialog.setIcon(android.R.drawable.ic_menu_info_details);
                 alertDialog.show();
                 
                 TextView textView = (TextView) alertDialog.findViewById(android.R.id.message);
-                textView.setTextSize(12.0f);
+                String aboutMessage = getString(R.string.about_text);
+                textView.setText(Html.fromHtml(aboutMessage));
+                
+                Pattern pattern1 = Pattern.compile("vhorta@mit.edu");   
+                Linkify.addLinks(textView, pattern1, "mailto:");
+                Pattern pattern2 = Pattern.compile("victorhorta@gmail.com");   
+                Linkify.addLinks(textView, pattern2, "mailto:");
+                Pattern pattern3 = Pattern.compile("fletcher@media.mit.edu");   
+                Linkify.addLinks(textView, pattern3, "mailto:");
+                
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -156,6 +167,13 @@ public class Main extends Activity implements OnClickListener {
         } else {
             Log.d(TAG, "onClicked: unexpected!");
         }
+    }
+    
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(alertDialog != null)
+            alertDialog.dismiss();
     }
     
     @Override

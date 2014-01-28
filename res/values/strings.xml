@@ -53,5 +53,42 @@
     <string name="title_activity_device_select">Select your device</string>
     <string name="hello_world">Hello world!</string>
     <string name="choose_a_sensor">Choose a sensor</string>
+    
+    <!-- The about html text -->
+    <string name="about_text">
+<![CDATA[
+<html>
+ <head></head>
+ <body>
+    <small>
+ 	<b><i>Mobile Environmental Monitoring Project</b></i>
+ 	<br/>
+ 	<br/>
+ 	
+ 	<b>App Author:</b><br/> Victor Horta<br/>
+    &nbsp&nbsp&nbsp vhorta@mit.edu<br/>
+    &nbsp&nbsp&nbsp victorhorta@gmail.com<br/><br/>
+    <b>Project Supervisor:</b><br/> Dr. Rich Fletcher<br/>
+    &nbsp&nbsp&nbsp fletcher@media.mit.edu<br/>
+    <p>&nbsp&nbsp&nbsp This app is designed for use with the Eco-Mini wearable environmental monitor.<br>
+    &nbsp&nbsp&nbsp This device measures air quality (toxic gas levels), volatile organic compounds, 
+    ambient sound level, RGB-IR light levels, temperature, humidity, and 3-axis 
+    acceleration. The device contains a GPS module to record location data 
+    and also contains a low-power bluetooth radio for streaming data to the phone.  
+    Data is recorded on an internal memory card on the Eco-Mini device or can be 
+    recorded and stored on the phone itself.</p>
+    
+    <p>&nbsp&nbsp&nbsp The EcoMobile application enables users to view live data from the Eco-Mini device and to control all the internal settings and calibration.</p>
+    <br/>
+
+    <b>About MIT Mobile Health Lab:</b><br/>
+    <p>&nbsp&nbsp&nbsp The MIT Mobile Health Lab is directed by Dr. Rich Fletcher and creates a 
+    variety of mobile phone peripherals that are used for environmental testing, 
+    health monitoring, and diagnostic aids, primarily for use in public health and 
+    global health.</p></small>
+ </body>
+</html>
+]]>
+    </string>
 
 </resources>

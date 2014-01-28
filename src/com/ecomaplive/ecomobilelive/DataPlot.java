@@ -27,14 +27,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.FloatMath;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.androidplot.Plot;
@@ -47,7 +50,7 @@ public class DataPlot extends Activity implements OnTouchListener {
     private static final String TAG = "DataPlot";
     private static final int SERIES_SIZE = 200;
     private XYPlot mySimpleXYPlot;
-    private Button resetButton;
+    private ImageButton resetButton;
     private SimpleXYSeries[] series = null;
     private PointF minXY;
     private PointF maxXY;
@@ -72,18 +75,21 @@ public class DataPlot extends Activity implements OnTouchListener {
             yVals.add(Double.parseDouble(overallList.get(1).get(pos)));
         }
         
-        setContentView(R.layout.touch_zoom);
-//        resetButton = (Button) findViewById(R.id.resetButton);
-//        // resetButton functionality
-//        resetButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        setContentView(R.layout.touch_zoom_button);
+        resetButton = (ImageButton) findViewById(R.id.resetButton);
+        registerForContextMenu(resetButton);
+        // resetButton functionality
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openContextMenu(view);
+                
 //                minXY.x = series[0].getX(0).floatValue();
 //                maxXY.x = series[0].getX(series[0].size() - 1).floatValue();
 //                mySimpleXYPlot.setDomainBoundaries(minXY.x, maxXY.x, BoundaryMode.FIXED);
 //                mySimpleXYPlot.redraw();
-//            }
-//        });
+            }
+        });
         
 
         
@@ -189,7 +195,7 @@ public class DataPlot extends Activity implements OnTouchListener {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.plot_menu_reset) {
             minXY.x = series[0].getX(0).floatValue();
@@ -234,6 +240,13 @@ public class DataPlot extends Activity implements OnTouchListener {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+    
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.plotmenu, menu);
     }
     
     
@@ -380,18 +393,6 @@ public class DataPlot extends Activity implements OnTouchListener {
         Bitmap bmp = Bitmap.createBitmap(mySimpleXYPlot.getDrawingCache());
         mySimpleXYPlot.setDrawingCacheEnabled(false);
         
-//        String fileName = new SimpleDateFormat("yyyyMMddhhmm'.png'").format(new Date());
-        //String fileName = new Date().getTime() + ".txt";
-        
-//        FileOutputStream fos;
-//        try {
-//            fos = new FileOutputStream(fileName, true);
-//            bmp.compress(CompressFormat.PNG, 100, fos);
-//            
-//            Toast.makeText(getBaseContext(), "Image '" + fileName + "' saved.", Toast.LENGTH_SHORT).show(); 
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
         
         boolean mExternalStorageAvailable = false;
         String state = Environment.getExternalStorageState();
@@ -412,23 +413,30 @@ public class DataPlot extends Activity implements OnTouchListener {
                     DataExplorer.STORAGE_DIR_SCREENSHOTS);
 
             if (!parentDirectory.exists()) {
-                if (parentDirectory.mkdirs()) {
+                // Forcing to create directory
+                parentDirectory.mkdirs();
+                
+                if (!parentDirectory.mkdirs()) {
+                    // The whole statement should always return true when it was not 
                     Toast.makeText(getBaseContext(), "Unable to set image folder.",
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
             Log.d(TAG, "image " + parentDirectory.getAbsolutePath());
+            String fileType = ".png";
             // dealing with the fileName:
             fileName = fileName.replaceAll("[\\/:\"*?<>|%\0]+", "");
             if (fileName.isEmpty())
                 fileName = new SimpleDateFormat("yyyyMMddhhmmss'.png'").format(new Date());
+            else {
+                fileName = fileName.concat(fileType);
+            }
 
-            String fileType = ".png";
             FileOutputStream fos;
             try {
                 fos = new FileOutputStream(parentDirectory.getAbsolutePath() + File.separator
-                        + fileName + fileType, true);
+                        + fileName, true);
                 bmp.compress(CompressFormat.PNG, 100, fos);
                 fos.flush();
                 fos.close();
