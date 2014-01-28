@@ -6,7 +6,6 @@
 	<classpathentry kind="lib" path="libs/opencsv-2.3.jar"/>
 	<classpathentry kind="lib" path="libs/androidplot-core-0.6.0.jar"/>
 	<classpathentry kind="lib" path="libs/json_simple-1.1.jar"/>
-	<classpathentry kind="src" path="/google-play-services_lib"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin/classes"/>
