@@ -48,6 +48,8 @@ import com.androidplot.xy.XYPlot;
 
 public class DataPlot extends Activity implements OnTouchListener {
     private static final String TAG = "DataPlot";
+    private static final boolean DEBUG = false;
+    
     private static final int SERIES_SIZE = 200;
     private XYPlot mySimpleXYPlot;
     private ImageButton resetButton;
@@ -119,8 +121,8 @@ public class DataPlot extends Activity implements OnTouchListener {
             public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
                 // SimpleDateFormat expects milliseconds!
                 long timestamp = ((Number) obj).longValue()*1000 + (long)REDUCING_TIME_FACTOR;
-                Log.d("REDUCING_TIME", "REDUCING_TIME:" + (long)REDUCING_TIME_FACTOR);
-                Log.d("REDUCING_TIME", "timestamp:" + timestamp);
+                if (DEBUG) Log.d("REDUCING_TIME", "REDUCING_TIME:" + (long)REDUCING_TIME_FACTOR);
+                if (DEBUG) Log.d("REDUCING_TIME", "timestamp:" + timestamp);
                 Date date = new Date(timestamp);
                 return dateFormat.format(date, toAppendTo, pos);
             }
@@ -180,9 +182,9 @@ public class DataPlot extends Activity implements OnTouchListener {
                 mySimpleXYPlot.getCalculatedMinY().floatValue());
         maxXY = new PointF(mySimpleXYPlot.getCalculatedMaxX().floatValue(),
                 mySimpleXYPlot.getCalculatedMaxY().floatValue());
-        Log.d(TAG, "primeiroX: "+ series[0].getX(0));
-        Log.d(TAG, "ultimoX: "+ series[0].getX(series[0].size() - 1));
-        Log.d(TAG, "START AFTER maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
+        if (DEBUG) Log.d(TAG, "firstX: "+ series[0].getX(0));
+        if (DEBUG) Log.d(TAG, " lastX: "+ series[0].getX(series[0].size() - 1));
+        if (DEBUG) Log.d(TAG, "START AFTER maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
     }
 
     
@@ -262,10 +264,10 @@ public class DataPlot extends Activity implements OnTouchListener {
         
         
         double nextX = (xIterator.next() - REDUCING_TIME_FACTOR)/1000;
-        Log.d(TAG, "     firstX: "+ firstX);
-        Log.d(TAG, "reducingtime: "+ REDUCING_TIME_FACTOR);
-        Log.d(TAG, "reducingtimelong: "+ (long)REDUCING_TIME_FACTOR);
-        Log.d(TAG, "     nextX: "+ nextX);
+        if (DEBUG) Log.d(TAG, "     firstX: "+ firstX);
+        if (DEBUG) Log.d(TAG, "reducingtime: "+ REDUCING_TIME_FACTOR);
+        if (DEBUG) Log.d(TAG, "reducingtimelong: "+ (long)REDUCING_TIME_FACTOR);
+        if (DEBUG) Log.d(TAG, "     nextX: "+ nextX);
         
         series.addLast(nextX, yIterator.next());
         
@@ -341,10 +343,10 @@ public class DataPlot extends Activity implements OnTouchListener {
     }
 
     private void scroll(float pan) {
-        Log.d(TAG, "BEF SCROLL maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
+        if (DEBUG) Log.d(TAG, "BEF SCROLL maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
         
         float domainSpan = maxXY.x - minXY.x;
-        Log.d(TAG, "BEF SCROLL domainSpan: "+ domainSpan);
+        if (DEBUG) Log.d(TAG, "BEF SCROLL domainSpan: "+ domainSpan);
         float step = domainSpan / (float)mySimpleXYPlot.getWidth();
         float offset = pan * step;
         minXY.x = minXY.x + offset;
@@ -365,8 +367,8 @@ public class DataPlot extends Activity implements OnTouchListener {
         }
         
         // AVOIDING SCREEN TO DISAPPEAR!!
-        Log.d(TAG, "maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
-        Log.d(TAG, "domainSpan: "+ domainSpan);
+        if (DEBUG) Log.d(TAG, "maxXY.x: " + maxXY.x + ", minXY.x: " + minXY.x);
+        if (DEBUG) Log.d(TAG, "domainSpan: "+ domainSpan);
 //        if(maxXY.x - minXY.x < domainSpan) {
 //            maxXY.x += 10000f;
 //        }
@@ -423,7 +425,7 @@ public class DataPlot extends Activity implements OnTouchListener {
                     return;
                 }
             }
-            Log.d(TAG, "image " + parentDirectory.getAbsolutePath());
+            if (DEBUG) Log.d(TAG, "image " + parentDirectory.getAbsolutePath());
             String fileType = ".png";
             // dealing with the fileName:
             fileName = fileName.replaceAll("[\\/:\"*?<>|%\0]+", "");

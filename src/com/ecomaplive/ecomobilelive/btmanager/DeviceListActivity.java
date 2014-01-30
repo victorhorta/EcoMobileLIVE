@@ -58,6 +58,9 @@ public class DeviceListActivity extends Activity {
     private BluetoothAdapter mBtAdapter;
     private ArrayAdapter<String> mPairedDevicesArrayAdapter;
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
+    
+    // No devices
+    public static final String NONE_PAIRED = "None paired";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,8 +118,7 @@ public class DeviceListActivity extends Activity {
                 mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
             }
         } else {
-            String noDevices = "None paired";
-            mPairedDevicesArrayAdapter.add(noDevices);
+            mPairedDevicesArrayAdapter.add(NONE_PAIRED);
         }
     }
 
@@ -160,14 +162,21 @@ public class DeviceListActivity extends Activity {
         public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
             // Cancel discovery because it's costly and we're about to connect
             mBtAdapter.cancelDiscovery();
+            Intent intent = new Intent();
 
             // Get the device MAC address, which is the last 17 chars in the View
             String info = ((TextView) v).getText().toString();
+
+            if(info.equals(NONE_PAIRED)) {
+                setResult(Activity.RESULT_CANCELED, intent);
+                finish();
+                return;
+            }
             String address = info.substring(info.length() - 17);
             String name = info.substring(0, info.indexOf('\n'));
             
             // Create the result Intent and include the MAC address
-            Intent intent = new Intent();
+            
             intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
             intent.putExtra(EXTRA_DEVICE_NAME, name);
 

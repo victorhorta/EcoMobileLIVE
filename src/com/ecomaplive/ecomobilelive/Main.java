@@ -29,7 +29,8 @@ import com.ecomaplive.ecomobilelive.filepicker.FileChooser;
 import com.ecomaplive.ecomobilelive.fragments.MainFragments;
 
 public class Main extends Activity implements OnClickListener {
-    public final static String TAG = "Main";
+    public static final String TAG = "Main";
+    private static final boolean DEBUG = false;
 
     public static final String PREFS_NAME = "UserPreferences";
 
@@ -139,11 +140,11 @@ public class Main extends Activity implements OnClickListener {
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.imageButton_up_left) {
-            Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
+            if (DEBUG) Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
             Intent i1 = new Intent(Main.this, MainFragments.class);
             Main.this.startActivity(i1);
         } else if (id == R.id.imageButton_up_right) {
-            Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
+            if (DEBUG) Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
 //            Intent i2 = new Intent(Main.this, DataManager.class);
 //            Main.this.startActivity(i2);
 
@@ -156,16 +157,16 @@ public class Main extends Activity implements OnClickListener {
             
             
         } else if (id == R.id.imageButton_down_left) {
-            Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
+            if (DEBUG) Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
             // Intent i3 = new Intent(Main.this, DataManagerMain.class);
             // Main.this.startActivity(i3);
             Toast.makeText(this, "To be implemented", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.imageButton_down_right) {
-            Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
+            if (DEBUG) Log.d(TAG, "Starting new intent from: " + v.getTag().toString());
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ecomaplive.com"));
             startActivity(browserIntent);
         } else {
-            Log.d(TAG, "onClicked: unexpected!");
+            if (DEBUG) Log.d(TAG, "onClicked: unexpected!");
         }
     }
     

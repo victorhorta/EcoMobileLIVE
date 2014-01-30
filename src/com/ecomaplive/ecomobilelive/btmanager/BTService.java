@@ -30,7 +30,10 @@ import com.ecomaplive.ecomobilelive.fragments.DeviceFragment;
 import com.ecomaplive.ecomobilelive.fragments.MainFragments;
 
 public class BTService extends Service {
+    
     static final String TAG = "BTService";
+    private final boolean DEBUG = false;
+    
     public static boolean SERVICE_IS_RUNNING = false;
     
     // Intents Service -> Activity
@@ -205,10 +208,12 @@ public class BTService extends Service {
 //               ... //Device is about to disconnect
 //            }
              if (BluetoothDevice.ACTION_ACL_DISCONNECTED.equals(action)) {
-                 if(device.equals(mmDevice))
-                 Log.d(TAG, "Bluetooth lost connection! true");
-                 else 
-                 Log.d(TAG, "Bluetooth lost connection! false");
+                 if(device.equals(mmDevice)){
+                     if (DEBUG) Log.d(TAG, "Bluetooth lost connection! true");                     
+                 }
+                 else {
+                     if (DEBUG) Log.d(TAG, "Bluetooth lost connection! false");                     
+                 }
                  
                  stopSelf();
 //               ... //Device has disconnected
@@ -250,7 +255,7 @@ public class BTService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand");
+        if (DEBUG) Log.d(TAG, "onStartCommand");
 
         // Setting our device
         connectDevice(intent);
@@ -332,7 +337,7 @@ public class BTService extends Service {
 
                                     handler.post(new Runnable() {
                                         public void run() {
-                                            Log.d(TAG, "Data received!");
+                                            if (DEBUG) Log.d(TAG, "Data received!");
                                             //addMessageToListView(data);
                                             mActiveDeviceStreamHandler.parseAndHandleStream(data);
                                             history.append(data + "\n");
@@ -370,7 +375,7 @@ public class BTService extends Service {
         outputStream.write(carriageReturn);
         mmOutputStream.write(outputStream.toByteArray());
         
-        Log.d(TAG, "Data sent!");
+        if (DEBUG) Log.d(TAG, "Data sent!");
     }
     
     void closeBT() throws IOException {

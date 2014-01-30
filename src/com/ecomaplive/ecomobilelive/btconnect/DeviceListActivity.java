@@ -32,7 +32,7 @@ import com.ecomaplive.ecomobilelive.R;
 public class DeviceListActivity extends Activity {
     // Debugging
     private static final String TAG = "DeviceListActivity";
-    private static final boolean D = true;
+    private static final boolean D = false;
 
     // Return Intent extra
     public static String EXTRA_DEVICE_ADDRESS = "device_address";
