@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -61,6 +62,8 @@ public class CollectFragment extends Fragment {
     Thread fieldLabelsUpdater;
     
     private MainFragments mainFragmentsContext;
+    private LocationManager mlocManager;
+    
     
     Button addMarkerButton;
     ToggleButton recordToggleButton;
@@ -312,7 +315,7 @@ public class CollectFragment extends Fragment {
             
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (buttonView.isChecked()) {
+                if (buttonView.isChecked() && checkForLocationProvider()) {
                     saveCheckBoxState(true);
                     /**
                      * Starting the service.
@@ -323,6 +326,7 @@ public class CollectFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), GeoService.class);
                     getActivity().startService(intent);
                 } else {
+                    buttonView.setChecked(false);
                     saveCheckBoxState(false);
                     Intent intent = new Intent(getActivity(), GeoService.class);
                     getActivity().stopService(intent);
@@ -354,7 +358,7 @@ public class CollectFragment extends Fragment {
         fieldLabelsUpdater.start();
     	updateLatestLabelsAndValues();
     	phoneLocation.setChecked(loadCheckBoxState());
-    	if(loadCheckBoxState()) {
+    	if(loadCheckBoxState() && checkForLocationProvider()) {
     	    Intent intent = new Intent(getActivity(), GeoService.class);
             getActivity().startService(intent);
     	}
@@ -463,6 +467,37 @@ public class CollectFragment extends Fragment {
     private boolean loadCheckBoxState() { 
         SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("collectprefs", Context.MODE_MULTI_PROCESS);
         return sharedPreferences.getBoolean("phonelocation", false);
+    }
+    
+    private boolean checkForLocationProvider() {
+        mlocManager = (LocationManager) getActivity().getSystemService(
+                Context.LOCATION_SERVICE);
+        if (mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            return true;
+        }
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder
+                .setMessage("GPS is disabled in your device. Enable it manually before activating this feature.")
+                .setCancelable(false)
+                .setPositiveButton("Enable GPS",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent callGPSSettingIntent = new Intent(
+                                        android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                getActivity().startActivity(callGPSSettingIntent);
+                            }
+                        });
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialogBuilder.create();
+        alert.show();
+        
+        return mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 }
 
