@@ -73,6 +73,14 @@
                 android:textOff="STOPPED"
                 android:textOn="RECORDING" />
         </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/frag_phonelocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Use phone location if device GPS is not found"
+            android:textStyle="italic" />
         
         <TextView
             android:id="@+id/frag_dynamicmonitor"

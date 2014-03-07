@@ -19,13 +19,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.format.Time;
 import android.util.Log;
 
 import com.ecomaplive.ecomobilelive.R;
+import com.ecomaplive.ecomobilelive.csvconfig.EcoCSVObject;
 import com.ecomaplive.ecomobilelive.fragments.DeviceFragment;
 import com.ecomaplive.ecomobilelive.fragments.MainFragments;
 
@@ -338,9 +341,38 @@ public class BTService extends Service {
                                     handler.post(new Runnable() {
                                         public void run() {
                                             if (DEBUG) Log.d(TAG, "Data received!");
-                                            //addMessageToListView(data);
-                                            mActiveDeviceStreamHandler.parseAndHandleStream(data);
-                                            history.append(data + "\n");
+                                            
+                                            String dataInRunnable = data; 
+                                            // Checking if the phoneLocation option is activated
+                                            // (if true, we should change the NO_GPS fields to the corresponding user location)
+                                            boolean phoneLocationPref = getApplicationContext()
+                                                    .getSharedPreferences(
+                                                            "collectprefs",
+                                                            Context.MODE_MULTI_PROCESS)
+                                                    .getBoolean(
+                                                            "phonelocation",
+                                                            false);
+                                            
+                                            if(phoneLocationPref) {
+                                                String noGps = EcoCSVObject.NO_GPS;
+                                                if(data.contains(noGps)) {
+                                                    String noGpsLocation = noGps + "," + noGps;
+                                                    
+                                                    LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+                                                    Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                                                    if (lastKnownLocation != null) {
+                                                        if ((System.currentTimeMillis() - lastKnownLocation.getTime()) < 10000) {
+                                                            String phoneLocation = lastKnownLocation.getLatitude() + "," + lastKnownLocation.getLongitude();
+                                                            dataInRunnable = data.replace(noGpsLocation,phoneLocation);
+                                                        } else {
+                                                            Log.e(TAG, "Last known location is too old!");
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
+                                            mActiveDeviceStreamHandler.parseAndHandleStream(dataInRunnable);
+                                            history.append(dataInRunnable + "\n");
                                         }
                                     });
                                 } else {

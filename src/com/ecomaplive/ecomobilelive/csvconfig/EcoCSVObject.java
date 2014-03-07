@@ -21,7 +21,7 @@ import au.com.bytecode.opencsv.CSVReader;
 @SuppressWarnings("serial")
 public class EcoCSVObject  implements Serializable {
     final static private String TAG = "EcoCSVObject";
-    static String NO_GPS = new String("!!!NO-GPS!!!");
+    public static String NO_GPS = new String("!!!NO-GPS!!!");
     
     private boolean hasGPS;
     

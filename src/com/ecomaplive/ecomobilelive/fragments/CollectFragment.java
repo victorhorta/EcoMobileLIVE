@@ -6,8 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -18,6 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -30,6 +35,7 @@ import android.widget.ToggleButton;
 
 import com.ecomaplive.ecomobilelive.R;
 import com.ecomaplive.ecomobilelive.btmanager.BTService;
+import com.ecomaplive.ecomobilelive.btmanager.GeoService;
 import com.ecomaplive.ecomobilelive.dynamicplot.OrientationSensorExampleActivity;
 
 
@@ -61,6 +67,7 @@ public class CollectFragment extends Fragment {
     TextView  sessionName;
     Spinner dynamicMonitor;
     Button monitorButton;
+    CheckBox phoneLocation;
     
     //TextView amountTextView;
     TableLayout fieldsToBeUpdated;
@@ -74,6 +81,12 @@ public class CollectFragment extends Fragment {
     public void onPause() {
         super.onPause();
         fieldLabelsUpdater.interrupt();
+        saveCheckBoxState(phoneLocation.isChecked());
+        if(!loadCheckBoxState()) {
+            // Making sure that the service is killed when leaving the screen
+            Intent intent = new Intent(getActivity(), GeoService.class);
+            getActivity().stopService(intent);
+        }
     }
     
     
@@ -88,7 +101,7 @@ public class CollectFragment extends Fragment {
         sessionName.setText(sessionNameString);
         dynamicMonitor = (Spinner) getActivity().findViewById(R.id.frag_monitor_spinner);
         monitorButton = (Button) getActivity().findViewById(R.id.frag_monitor_start);
-        
+        phoneLocation = (CheckBox) getActivity().findViewById(R.id.frag_phonelocation);
         
         monitorableDataNames = new ArrayList<String>();
         monitorableDataNames.add("Not connected");
@@ -295,6 +308,28 @@ public class CollectFragment extends Fragment {
             }
         });
         
+        phoneLocation.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    saveCheckBoxState(true);
+                    /**
+                     * Starting the service.
+                     * Prevents the service from shutting down after activities
+                     * are not bounded anymore.
+                     */
+                    // Explicitly start GeoService
+                    Intent intent = new Intent(getActivity(), GeoService.class);
+                    getActivity().startService(intent);
+                } else {
+                    saveCheckBoxState(false);
+                    Intent intent = new Intent(getActivity(), GeoService.class);
+                    getActivity().stopService(intent);
+                }
+            }
+        });
+        
     }
     
     public void onResume() {
@@ -318,6 +353,11 @@ public class CollectFragment extends Fragment {
 
         fieldLabelsUpdater.start();
     	updateLatestLabelsAndValues();
+    	phoneLocation.setChecked(loadCheckBoxState());
+    	if(loadCheckBoxState()) {
+    	    Intent intent = new Intent(getActivity(), GeoService.class);
+            getActivity().startService(intent);
+    	}
     }
     
     
@@ -411,6 +451,18 @@ public class CollectFragment extends Fragment {
                 }
             }
         });
+    }
+    
+    private void saveCheckBoxState(final boolean isChecked) {
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("collectprefs", Context.MODE_MULTI_PROCESS);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("phonelocation", isChecked);
+        editor.commit();
+    }
+
+    private boolean loadCheckBoxState() { 
+        SharedPreferences sharedPreferences = getActivity().getApplicationContext().getSharedPreferences("collectprefs", Context.MODE_MULTI_PROCESS);
+        return sharedPreferences.getBoolean("phonelocation", false);
     }
 }
 

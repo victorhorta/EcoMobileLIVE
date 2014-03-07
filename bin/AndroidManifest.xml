@@ -125,6 +125,11 @@
             android:name="com.ecomaplive.ecomobilelive.btmanager.BTService"
             android:exported="false" />
         
+        <!-- GeoService related -->
+        <service
+            android:name="com.ecomaplive.ecomobilelive.btmanager.GeoService"
+            android:exported="false" />
+        
         <activity android:name="com.ecomaplive.ecomobilelive.btconnect.DeviceListActivity"
                   android:label="Select a device"
                   android:configChanges="orientation|keyboardHidden"
